@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abdulqader Alshihabi - Computer Science Graduate &amp; Software Engineer</title>
+  <meta name="description" content="Portfolio of Abdulqader Alshihabi - Computer Science Graduate from the Islamic University of Madinah, Software &amp; AI Engineer, and Research &amp; Innovation Consultant.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css?v=2100">
+</head>
+<body>
+
+  <!-- Floating Left Dock (6 Items for 6 Sections) -->
+  <aside class="floating-dock" id="floatingDock">
+    <a href="#hero" class="dock-item active" data-tooltip="Home" aria-label="Home">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+        <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+        <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+        <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+      </svg>
+    </a>
+    <a href="#about" class="dock-item" data-tooltip="About &amp; Experience" aria-label="About &amp; Experience">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+    </a>
+    <a href="#skills" class="dock-item" data-tooltip="Skills" aria-label="Skills">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="16 18 22 12 16 6"></polyline>
+        <polyline points="8 6 2 12 8 18"></polyline>
+      </svg>
+    </a>
+    <a href="#works" class="dock-item" data-tooltip="Works" aria-label="Works">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+        <line x1="8" y1="21" x2="16" y2="21"></line>
+        <line x1="12" y1="17" x2="12" y2="21"></line>
+      </svg>
+    </a>
+    <a href="#certificates" class="dock-item" data-tooltip="Certificates" aria-label="Certificates">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="6"></circle>
+        <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+      </svg>
+    </a>
+    <a href="#contact" class="dock-item" data-tooltip="Contact" aria-label="Contact">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+        <polyline points="22,6 12,13 2,6"></polyline>
+      </svg>
+    </a>
+  </aside>
+
+  <!-- Scroll Snap Container -->
+  <div class="snap-scroll-wrapper" id="snapContainer">
+
+    <!-- 1. Hero Section -->
+    <section class="section hero-section" id="hero">
+      <!-- Top Navigation Header (Hero only) -->
+      <header class="top-nav" id="topNav">
+        <div class="nav-container">
+          <a href="#hero" class="logo">
+            <span class="logo-code">&lt;C/&gt;</span>
+            <span class="logo-text">Abdulqader Alshihabi</span>
+          </a>
+
+          <nav class="nav-links">
+            <a href="#hero" class="nav-link active">Home</a>
+            <a href="#about" class="nav-link">About &amp; Experience</a>
+            <a href="#skills" class="nav-link">Skills</a>
+            <a href="#works" class="nav-link">Works</a>
+            <a href="#certificates" class="nav-link">Certificates</a>
+            <a href="#contact" class="nav-link">Contact</a>
+          </nav>
+
+          <div class="nav-socials">
+            <a href="https://www.linkedin.com/in/abdulqader-alshihabi-859b19260" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
+              <span class="social-text">LinkedIn</span>
+            </a>
+            <a href="https://github.com/Abdulqader-Alshihabi" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+              <span class="social-text">GitHub</span>
+            </a>
+            <a href="mailto:abdulqader.moh.2003@gmail.com" class="social-link" title="Email">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </svg>
+              <span class="social-text">Email</span>
+            </a>
+            <a href="tel:+966582733968" class="social-link" title="Call">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+              <span class="social-text">Call</span>
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <div class="hero-bg-text">Developer</div>
+
+      <div class="hero-container">
+        <!-- Left: Profile Card with Cut-out Outline -->
+        <div class="profile-card-wrapper">
+          <div class="profile-card-outline"></div>
+          <div class="profile-card">
+            <div class="profile-avatar-box">
+              <!-- Put your profile picture at: assets/images/profile/avatar.png -->
+              <img src="assets/images/profile/avatar.png" alt="Abdulqader Alshihabi - Computer Science Graduate &amp; Software Engineer" class="profile-avatar">
+            </div>
+
+            <h2 class="profile-name">Abdulqader</h2>
+            <p class="profile-title">Computer Science Graduate | Software &amp; AI Engineer</p>
+
+            <ul class="profile-info-list">
+              <li>
+                <svg class="info-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <a href="mailto:abdulqader.moh.2003@gmail.com">abdulqader.moh.2003@gmail.com</a>
+              </li>
+              <li>
+                <svg class="info-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span>CS Graduate • Islamic Univ., Madinah</span>
+              </li>
+              <li>
+                <svg class="info-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                </svg>
+                <a href="https://github.com/Abdulqader-Alshihabi" target="_blank" rel="noopener noreferrer">github.com/Abdulqader-Alshihabi</a>
+              </li>
+            </ul>
+
+            <div class="profile-skills-tags">
+              <span class="skill-tag">PYTHON</span>
+              <span class="skill-tag">REACT</span>
+              <span class="skill-tag">DJANGO</span>
+              <span class="skill-tag">AI / ML</span>
+              <span class="skill-tag">POSTGRESQL</span>
+            </div>
+
+            <!-- To enable CV download, place your CV PDF at: assets/docs/cv.pdf -->
+            <a href="assets/docs/cv.pdf" download="Abdulqader_Alshihabi_CV.pdf" class="btn-download-cv">
+              <span>Download CV</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Center: Main Intro Title & Description -->
+        <div class="hero-intro">
+          <span class="code-tag">&lt;h1&gt;</span>
+          <h1 class="hero-heading">
+            Hey<br>
+            I’m <span class="highlight-cyan">Abdulqader</span>,<br>
+            Computer Science Graduate &amp; Software Engineer <span class="code-tag-inline">&lt;/h1&gt;</span>
+          </h1>
+
+          <span class="code-tag">&lt;p&gt;</span>
+          <p class="hero-desc">
+            Computer Science graduate from the Islamic University of Madinah. Dedicated Software &amp; AI Engineer with proven expertise in Full-Stack architecture, ERP enterprise modules, and Deep Learning models. Currently serving as a Research &amp; Innovation Consultant at the Institute of Research &amp; Consulting Studies.
+          </p>
+          <span class="code-tag">&lt;/p&gt;</span>
+
+          <div class="hero-cta-wrapper">
+            <a href="#contact" class="hero-cta">
+              <span class="cta-text">Let’s Talk</span>
+              <span class="cta-mail-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Stats Pill Card -->
+        <div class="hero-stats-card">
+          <div class="stat-item">
+            <span class="stat-number">5</span>
+            <span class="stat-label">Programming<br>Languages</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">10+</span>
+            <span class="stat-label">Frameworks &amp;<br>Dev Tools</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">16</span>
+            <span class="stat-label">Verified<br>Credentials</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. About Me Section -->
+    <section class="section about-section" id="about">
+      <div class="about-bg-topography"></div>
+
+      <div class="about-container">
+        <!-- Section Header Badge -->
+        <div class="section-badge-wrapper">
+          <div class="section-badge">About &amp; Experience</div>
+        </div>
+
+        <div class="about-grid">
+          <!-- Text Box -->
+          <div class="about-content-card">
+            <span class="code-tag">&lt;p&gt;</span>
+            <h3 class="about-subtitle">Hello!</h3>
+            <p class="about-paragraph">
+              My name is <span class="highlight-cyan">Abdulqader Alshihabi</span>, a Computer Science graduate from the <span class="highlight-cyan">Islamic University of Madinah</span>, passionate about engineering scalable software systems and artificial intelligence solutions.
+            </p>
+            <p class="about-paragraph">
+              Currently serving as a <span class="highlight-cyan">Research &amp; Innovation Consultant (Part-time)</span> at the <span class="highlight-cyan">Institute of Research and Consulting Studies</span>, steering technical architecture, development workflows, and research initiatives.
+            </p>
+            <p class="about-paragraph">
+              Previously completed an intensive <span class="highlight-cyan">Software Engineering Internship</span> at <span class="highlight-cyan">Asaqefah for Business Development</span>, engineering core ERP modules with <span class="highlight-cyan">React.js</span> and <span class="highlight-cyan">Django</span> with automated cross-departmental business workflows.
+            </p>
+            <p class="about-paragraph">
+              Holding <span class="highlight-cyan">16 verified professional credentials</span> across Computer Vision, Deep Learning, and Cloud Systems from prestigious institutions including <span class="highlight-cyan">KAUST Academy</span>, <span class="highlight-cyan">DeepLearning.AI</span>, <span class="highlight-cyan">IBM</span>, and <span class="highlight-cyan">AWS</span>.
+            </p>
+            <span class="code-tag">&lt;/p&gt;</span>
+          </div>
+
+          <!-- Right: Professional Experience Card -->
+          <div class="about-experience-card">
+            <div class="exp-card-header">
+              <div class="exp-title-group">
+                <div class="exp-title-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                  </svg>
+                </div>
+                <h3 class="exp-card-heading">Work Experience &amp; Training</h3>
+              </div>
+            </div>
+
+            <!-- View 1: Timeline -->
+            <div class="exp-timeline-wrapper" id="expTimelineView">
+              <!-- Item 1: Islamic University -->
+              <div class="exp-item current">
+                <div class="exp-item-icon iu-bg">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                    <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                  </svg>
+                </div>
+                <div class="exp-item-body">
+                  <div class="exp-item-top">
+                    <div>
+                      <h4 class="exp-role-title">Research &amp; Innovation Consultant</h4>
+                      <p class="exp-company-name">Islamic University of Madinah</p>
+                    </div>
+                    <span class="exp-status-badge current">
+                      <span class="pulse-dot"></span>
+                      <span>Part-time</span>
+                    </span>
+                  </div>
+                  <div class="exp-meta-row">
+                    <span class="exp-meta-date mono">Jul 2026 – Present</span>
+                    <span class="exp-meta-sep">•</span>
+                    <span class="exp-meta-loc mono">Madinah (Hybrid)</span>
+                  </div>
+                  <p class="exp-detail-desc">
+                    Institute of Research &amp; Consulting Studies: Leading technical development, operational execution, and project lifecycles.
+                  </p>
+                  <div class="exp-tags-row">
+                    <span class="exp-tag">Research &amp; Innovation</span>
+                    <span class="exp-tag">Technical Consultation</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 2: Asaqefah -->
+              <div class="exp-item">
+                <div class="exp-item-icon asq-bg">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                  </svg>
+                </div>
+                <div class="exp-item-body">
+                  <div class="exp-item-top">
+                    <div>
+                      <h4 class="exp-role-title">Software Engineer Intern</h4>
+                      <p class="exp-company-name">Asaqefah for Business Development</p>
+                    </div>
+                    <span class="exp-status-badge intern">
+                      <span>Internship</span>
+                    </span>
+                  </div>
+                  <div class="exp-meta-row">
+                    <span class="exp-meta-date mono">Jun 2026 – Jul 2026</span>
+                    <span class="exp-meta-sep">•</span>
+                    <span class="exp-meta-loc mono">Madinah (On-site)</span>
+                  </div>
+                  <p class="exp-detail-desc">
+                    Full-Stack Development: Built core HR module in an ERP system with React and Django; automated HR-to-Finance integrations.
+                  </p>
+                  <div class="exp-tags-row">
+                    <span class="exp-tag">React.js</span>
+                    <span class="exp-tag">Django</span>
+                    <span class="exp-tag">ERP Systems</span>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Skills Section -->
+    <section class="section skills-section" id="skills">
+      <div class="skills-bg-code"></div>
+
+      <div class="skills-container">
+        <!-- Centered Title with Designer Code Graphic Attached -->
+        <div class="skills-title-wrapper">
+          <img src="assets/images/icons/code_symbol_exact.png" alt="Code Symbol" class="designer-code-graphic">
+          <h2 class="section-title">Skills</h2>
+        </div>
+        <p class="section-subtitle">I am striving to never stop learning and improving</p>
+
+        <!-- Two Category Cards -->
+        <div class="skills-cards-row">
+          <div class="skill-category-card">
+            <div class="skill-category-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
+            <h3 class="skill-category-title">Full-Stack &amp; Software Engineering</h3>
+            <p class="skill-category-techs">REACT.JS · DJANGO · JAVASCRIPT · PYTHON · JAVA</p>
+          </div>
+
+          <div class="skill-category-card">
+            <div class="skill-category-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+              </svg>
+            </div>
+            <h3 class="skill-category-title">AI, Data &amp; Cloud Systems</h3>
+            <p class="skill-category-techs">COMPUTER VISION · PYTORCH · POSTGRESQL · SUPABASE · AWS</p>
+          </div>
+        </div>
+
+        <!-- 10 Skill Badges (2 Balanced Rows) -->
+        <div class="skills-circles-wrapper">
+          <!-- Row 1: Frontend & Python -->
+          <div class="skills-circles-row">
+            <!-- HTML -->
+            <div class="skill-circle-item">
+              <div class="circle-badge circle-html" title="HTML5">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2L3 5l2 14 7 3 7-3 2-14-9-3zm6.2 4.9l-.4 3.7h-5.8v2.7h5.4l-.5 5.5-4.9 1.4-4.9-1.4-.3-3.6h2.4l.2 1.8 2.6.7 2.6-.7.3-2.7H7.7L7 7h11.2z"/>
+                </svg>
+              </div>
+              <span class="skill-circle-label label-html">HTML</span>
+            </div>
+
+            <!-- CSS -->
+            <div class="skill-circle-item">
+              <div class="circle-badge circle-css" title="CSS3">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2L3 5l2 14 7 3 7-3 2-14-9-3zm6.2 4.9l-.4 3.7H7.4l.3 2.7h10.1l-.5 5.5-5.3 1.5-5.3-1.5-.3-3.6h2.4l.2 1.8 3 .8 3-.8.3-2.7H7l-.7-6.9h11.9z"/>
+                </svg>
+              </div>
+              <span class="skill-circle-label label-css">CSS</span>
+            </div>
+
+            <!-- JS -->
+            <div class="skill-circle-item">
+              <div class="circle-badge circle-js" title="JavaScript">
+                <span class="js-logo-text">JS</span>
+              </div>
+              <span class="skill-circle-label label-js">JS</span>
+            </div>
+
+            <!-- REACT -->
+            <div class="skill-circle-item">
+              <div class="circle-badge circle-react" title="React">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <ellipse cx="12" cy="12" rx="10" ry="4"></ellipse>
+                  <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"></ellipse>
+                  <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"></ellipse>
+                  <circle cx="12" cy="12" r="2" fill="currentColor"></circle>
+                </svg>
+              </div>
+              <span class="skill-circle-label label-react">REACT</span>
+            </div>
+
+            <!-- PYTHON -->
+            <div class="skill-circle-item">
+              <div class="circle-badge circle-python" title="Python">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M11.917 0c-3.535 0-3.313 1.533-3.313 1.533l.006 1.588h3.364v.505H5.215S3 3.374 3 6.944c0 3.57 1.929 3.447 1.929 3.447h1.153v-1.63s-.063-1.93 1.897-1.93h3.255s1.834.028 1.834-1.777V3.313S13.411 0 11.917 0zm-1.85 1.054a.735.735 0 1 1 0 1.47.735.735 0 0 1 0-1.47zM18.785 6.944h-1.153v1.63s.063 1.93-1.897 1.93h-3.255s-1.834-.028-1.834 1.777v1.741s-.343 3.313 1.151 3.313c3.535 0 3.313-1.533 3.313-1.533l-.006-1.588h-3.364v-.505h6.759s2.215.252 2.215-3.318c0-3.57-1.929-3.447-1.929-3.447zm-4.852 9.948a.735.735 0 1 1 0-1.47.735.735 0 0 1 0 1.47z"/>
+                </svg>
+              </div>
+              <span class="skill-circle-label label-python">PYTHON</span>
+            </div>
+          </div>
+
+          <!-- Row 2: Backend, Database & Tools -->
+          <div class="skills-circles-row">
+            <!-- JAVA -->
+            <div class="skill-circle-item">
+              <div class="circle-badge circle-java" title="Java">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8.851 18.56s-.917.534.667.7c2.257.236 4.887.218 6.92-.191 0 0 .584.442 1.352.768-4.223 1.636-11.442.868-8.939-1.277zm-1.077-3.084s-1.084.733.567.954c2.871.385 7.027.355 9.771-.341 0 0 .401.484 1.052.748-4.846 1.696-14.394 1.127-11.39-1.361zm8.795-4.321c1.378 1.429-.408 2.584-.408 2.584s2.464-.817 1.341-2.457c-1.157-1.688-2.613-2.528-5.011-3.687 0 0 2.451 1.096 4.078 3.56zm-4.331-5.748c-1.503 1.642 1.258 3.441 1.258 3.441s.584-.969-.375-1.914c-1.018-1.002-.576-1.527-.883-1.527zm-5.783 11.233c3.486.236 8.892-.054 11.836-1.564 0 0-.841.527-1.58.748-4.004 1.205-12.756 1.471-10.256-.816v1.632zm13.111-2.915c2.046-2.587-1.079-3.766-1.079-3.766 2.68 1.05 1.588 3.693 1.079 3.766zm-5.83-8.868c-.97 1.058 1.407 2.378 1.407 2.378s.385-.688-.242-1.352c-.663-.7-1.165-1.026-1.165-1.026zm-1.594 14.654c3.414.218 6.947-.118 9.878-1.255 0 0-.608.436-1.217.654-3.522 1.255-11.455 1.418-8.661-.601v1.202z"/>
+                </svg>
+              </div>
+              <span class="skill-circle-label label-java">JAVA</span>
+            </div>
+
+            <!-- POSTGRESQL -->
+            <div class="skill-circle-item">
+              <div class="circle-badge circle-postgres" title="PostgreSQL">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12.002 0c-3.136 0-5.845 1.248-7.399 3.197l.004.003c-.22.28-.403.585-.56.906l-.004.01c-.812 1.654-.925 3.754-.257 5.865.736 2.327 2.457 4.156 4.397 4.887-.04.423-.05.867-.024 1.328l-.006.002c.074 1.344.49 2.766 1.238 4.062.748 1.296 1.777 2.38 2.973 3.037.49.27 1.002.463 1.52.576.438.096.883.127 1.316.096.433-.032.85-.125 1.236-.28.772-.31 1.467-.82 2.025-1.488.558-.668.963-1.49 1.176-2.404.213-.914.205-1.91-.044-2.91a8.43 8.43 0 0 0-.74-1.954c1.177-.66 2.148-1.632 2.776-2.825.628-1.194.88-2.585.69-3.993-.19-1.408-.853-2.697-1.86-3.664-1.007-.967-2.31-1.587-3.72-1.748l-.008-.002A9.45 9.45 0 0 0 12.002 0zm-.016 2.062c2.456 0 4.606.84 5.95 2.188.895.898 1.433 2.022 1.543 3.18.11 1.157-.156 2.278-.711 3.203-.556.925-1.424 1.638-2.469 1.996l-.645.22.428.528c.45.556.77 1.19.932 1.875.162.685.15 1.393-.037 2.067-.188.674-.537 1.277-.992 1.734-.455.457-.999.76-1.58.887-.29.063-.586.082-.879.053a2.76 2.76 0 0 1-.84-.242c-.752-.413-1.439-1.19-1.957-2.18-.518-.99-.817-2.144-.863-3.26l-.014-.34-.336-.062c-1.643-.306-3.153-1.733-3.791-3.753-.552-1.747-.417-3.488.293-4.815.15-.28.324-.534.527-.754 1.31-1.42 3.498-2.327 5.885-2.327z"/>
+                </svg>
+              </div>
+              <span class="skill-circle-label label-postgres">POSTGRESQL</span>
+            </div>
+
+            <!-- SUPABASE -->
+            <div class="skill-circle-item">
+              <div class="circle-badge circle-supabase" title="Supabase">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M21.362 9.354H12V.396a.396.396 0 0 0-.716-.233L.12 14.286a.792.792 0 0 0 .616 1.3H12v8.958a.396.396 0 0 0 .716.233l11.164-14.123a.792.792 0 0 0-.518-1.3z"/>
+                </svg>
+              </div>
+              <span class="skill-circle-label label-supabase">SUPABASE</span>
+            </div>
+
+            <!-- POSTMAN -->
+            <div class="skill-circle-item">
+              <div class="circle-badge circle-postman" title="Postman">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6.862 7.747l-1.928 2.003c-.092.096-.217.15-.348.15h-1.638l-1.282 2.457c.307.391.492.883.492 1.42 0 1.284-1.042 2.327-2.327 2.327-1.284 0-2.327-1.042-2.327-2.327 0-.97.596-1.802 1.442-2.152l.942-3.14c-.067-.042-.132-.089-.193-.141l-2.502-2.13c-.198-.168-.458-.231-.71-.172l-2.378.558c-.12.028-.246.012-.357-.045l-1.29-.665c-.247-.128-.344-.432-.216-.679.128-.247.432-.344.679-.216l1.107.57 2.268-.532c.44-.103.902.012 1.248.307l2.368 2.016.92-3.067c.052-.172.176-.312.338-.381.162-.069.346-.057.498.033l1.854 1.102 3.193-.667c.189-.04.385.023.518.163l1.503 1.564c.185.193.18 1.012-.033 1.222z"/>
+                </svg>
+              </div>
+              <span class="skill-circle-label label-postman">POSTMAN</span>
+            </div>
+
+            <!-- GIT -->
+            <div class="skill-circle-item">
+              <div class="circle-badge circle-git" title="Git">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M23.546 10.93L13.067.452a1.5 1.5 0 0 0-2.124 0L8.831 2.564l3.146 3.147a2.122 2.122 0 0 1 2.682 2.682l3.078 3.079a2.122 2.122 0 1 1-1.06 1.06l-2.863-2.863v5.614a2.125 2.125 0 1 1-1.5 0V9.458a2.122 2.122 0 0 1-1.144-2.775L7.054 3.504 1.454 9.104a1.5 1.5 0 0 0 0 2.124l10.479 10.479a1.5 1.5 0 0 0 2.124 0l9.489-9.489a1.5 1.5 0 0 0 0-2.288z"/>
+                </svg>
+              </div>
+              <span class="skill-circle-label label-git">GIT</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Works Section (Exact Designer Match & Dual-Monitor Hardware) -->
+    <section class="section works-section" id="works">
+      <div class="works-bg-code"></div>
+
+      <div class="works-container">
+        <h2 class="works-title">Works</h2>
+        <p class="section-subtitle">I had the pleasure of working with these awesome projects</p>
+
+        <!-- Project Type Selector (Graduation / ERP / AI Model) -->
+        <div class="project-type-selector">
+          <button type="button" class="type-pill active" data-index="0" id="typePillWeb">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+            <span>Graduation Project (CRIS)</span>
+          </button>
+          <button type="button" class="type-pill" data-index="1" id="typePillMobile">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+            <span>Enterprise ERP Suite</span>
+          </button>
+          <button type="button" class="type-pill" data-index="2" id="typePillML">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+            </svg>
+            <span>AI &amp; Vision Model</span>
+          </button>
+        </div>
+
+        <!-- Carousel Showcase Container matching Designer 1:1 -->
+        <div class="works-showcase-wrapper">
+          <button class="carousel-arrow prev-arrow" id="prevWork" aria-label="Previous Project">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+
+          <!-- Dual-Monitor Workspace Display -->
+          <div class="works-hardware-workspace">
+            
+            <!-- Left: Vertical (Portrait) Code Monitor -->
+            <div class="portrait-monitor-frame">
+              <div class="portrait-monitor-bezel">
+                <div class="editor-titlebar">
+                  <div class="editor-dots">
+                    <span class="editor-dot red"></span>
+                    <span class="editor-dot yellow"></span>
+                    <span class="editor-dot green"></span>
+                  </div>
+                  <span class="editor-filename" id="codeFileName">CRISPlatform.tsx</span>
+                </div>
+                <div class="editor-body">
+                  <div class="code-linenos">
+                    <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                    <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+                    <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span>
+                    <span>16</span><span>17</span><span>18</span><span>19</span><span>20</span>
+                    <span>21</span><span>22</span>
+                  </div>
+                  <div class="code-lines" id="codeSnippetArea">
+                    <!-- Dynamic syntax highlighted code injected via JS -->
+                  </div>
+                </div>
+              </div>
+              <div class="portrait-stand-neck"></div>
+              <div class="portrait-stand-base"></div>
+            </div>
+
+            <!-- Right: Desktop (iMac style) Website Monitor -->
+            <div class="desktop-monitor-frame">
+              <!-- View Website Action directly above monitor matching Designer -->
+              <div class="desktop-top-header">
+                <a href="https://github.com/Abdulqader-Alshihabi" target="_blank" rel="noopener noreferrer" class="works-view-link" id="worksViewLink">
+                  <span id="worksViewText">View Project Repo</span>
+                  <span class="view-arrow-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </span>
+                </a>
+              </div>
+
+              <div class="desktop-monitor-bezel">
+                <div class="desktop-camera-dot"></div>
+                <div class="desktop-screen-viewport">
+                  <!-- Active project screenshot loaded dynamically from: assets/images/projects/ -->
+                  <img src="assets/images/projects/project_singleton.png" alt="Project Preview" class="desktop-preview-image" id="desktopPreviewImg">
+                </div>
+                <div class="desktop-chin">
+                  <div class="desktop-chin-logo"></div>
+                </div>
+              </div>
+              <div class="desktop-stand-neck"></div>
+              <div class="desktop-stand-base"></div>
+            </div>
+
+          </div>
+
+          <button class="carousel-arrow next-arrow" id="nextWork" aria-label="Next Project">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Certificates Section (Plain Solid Background) -->
+    <section class="section certs-section" id="certificates">
+      <div class="certs-container">
+        <h2 class="section-title">Certificates</h2>
+        <p class="section-subtitle mono">16 verified professional credentials &amp; academic distinctions</p>
+
+        <!-- Category Filter Pills (Styled matching Works Type Switcher) -->
+        <div class="project-type-selector certs-filter-bar">
+          <button class="type-pill cert-filter-btn active" data-filter="all">All (16)</button>
+          <button class="type-pill cert-filter-btn" data-filter="ai">AI &amp; Machine Learning (8)</button>
+          <button class="type-pill cert-filter-btn" data-filter="software">Python &amp; Data Science (7)</button>
+          <button class="type-pill cert-filter-btn" data-filter="cloud">Cloud &amp; Innovation (1)</button>
+        </div>
+
+        <!-- Showcase with Side Carousel Arrows (Matching Works Carousel) -->
+        <div class="certs-showcase-wrapper">
+          <button class="carousel-arrow prev-arrow" id="certPrevBtn" aria-label="Previous Page">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+
+          <div class="certs-grid" id="certsGrid">
+            <!-- 6 cards rendered dynamically -->
+          </div>
+
+          <button class="carousel-arrow next-arrow" id="certNextBtn" aria-label="Next Page">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Pagination Dots & Status -->
+        <div class="cert-pagination-row">
+          <div class="cert-page-indicator" id="certPageIndicator"></div>
+          <span class="cert-page-counter mono" id="certPageCounter">Page 1 of 4</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Contact Section (Dark Theme Matching Designer & Footer Included) -->
+    <section class="section contact-section" id="contact">
+      <div class="contact-container">
+        <h2 class="section-title">Contact</h2>
+        <p class="section-subtitle mono">Let’s connect and build something impactful together</p>
+
+        <!-- Direct Contact Channels (LinkedIn, GitHub, Email, Call) -->
+        <div class="contact-channels-row">
+          <a href="https://www.linkedin.com/in/abdulqader-alshihabi-859b19260" target="_blank" rel="noopener noreferrer" class="contact-channel-pill" title="LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+            <span>LinkedIn</span>
+          </a>
+          <a href="https://github.com/Abdulqader-Alshihabi" target="_blank" rel="noopener noreferrer" class="contact-channel-pill" title="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+            </svg>
+            <span>GitHub</span>
+          </a>
+          <a href="mailto:abdulqader.moh.2003@gmail.com" class="contact-channel-pill" title="Email">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+            </svg>
+            <span>Email</span>
+          </a>
+          <a href="tel:+966582733968" class="contact-channel-pill" title="Call">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span>Call</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Certificate Raw PDF Modal Viewer -->
+  <div class="cert-modal-backdrop" id="certModal">
+    <div class="cert-modal-dialog cert-pdf-dialog">
+      <div class="cert-modal-top-bar">
+        <div class="cert-modal-info">
+          <h3 class="cert-modal-doc-title" id="modalCertTitle">Certificate Title</h3>
+          <p class="cert-modal-doc-sub" id="modalDocSub">Issuer Name • ID</p>
+        </div>
+        <div class="cert-modal-actions-top">
+          <a href="#" class="btn-cert-modal-raw" id="modalPdfLink" target="_blank" rel="noopener noreferrer">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+            <span>Open PDF in New Tab</span>
+          </a>
+          <a href="#" class="btn-cert-modal-verify" id="modalVerifyLink" target="_blank" rel="noopener noreferrer" style="display: none;">
+            <span>Verify Online</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="7 7 17 7 17 17"></polyline><line x1="7" y1="17" x2="17" y2="7"></line></svg>
+          </a>
+          <button class="cert-modal-close-btn" id="certModalClose" aria-label="Close Modal">&times;</button>
+        </div>
+      </div>
+
+      <!-- Raw PDF Embedded Viewport -->
+      <div class="cert-pdf-viewport">
+        <iframe id="certPdfFrame" src="" class="cert-pdf-iframe" title="Raw Certificate PDF Preview"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js?v=2100"></script>
+</body>
+</html>
