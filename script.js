@@ -162,6 +162,49 @@ $$;`
     },
     {
       type: 'web',
+      typeName: 'Saaed HR & Payroll ERP',
+      actionText: 'View Saaed ERP Case Study',
+      actionUrl: 'https://github.com/Abdulqader-Alshihabi/Sync-ERP-HR',
+      previewImg: 'assets/images/projects/project_mobile_screen.png',
+      codeFile: 'saudi_payroll_wps.py',
+      codeSnippet: `<span class="code-kw">from</span> decimal <span class="code-kw">import</span> Decimal
+<span class="code-kw">from</span> cryptography.fernet <span class="code-kw">import</span> Fernet
+
+<span class="code-cm"># Saaed ERP: Saudi Labor Law GOSI &amp; WPS Engine</span>
+<span class="code-kw">class</span> <span class="code-fn">SaudiPayrollEngine</span>:
+    GOSI_SAUDI_RATE = Decimal(<span class="code-str">'0.0975'</span>)
+
+    <span class="code-kw">def</span> <span class="code-fn">calculate_wps_disbursement</span>(self, employee, base, allowances):
+        gross = base + allowances
+        gosi = gross * self.GOSI_SAUDI_RATE <span class="code-kw">if</span> employee.is_saudi <span class="code-kw">else</span> Decimal(<span class="code-str">'0'</span>)
+        net_payable = gross - gosi
+
+        <span class="code-cm"># Encrypt PII banking records before persistence</span>
+        encrypted_iban = Fernet(KEY).encrypt(employee.iban.encode())
+        <span class="code-kw">return</span> {<span class="code-str">"net"</span>: net_payable, <span class="code-str">"wps_payload"</span>: encrypted_iban}`
+    },
+    {
+      type: 'web',
+      typeName: 'res-handler (AI Search)',
+      actionText: 'View res-handler Case Study',
+      actionUrl: 'https://github.com/Abdulqader-Alshihabi/res-handler',
+      previewImg: 'assets/images/projects/project_singleton.png',
+      codeFile: 'vector_search.go',
+      codeSnippet: `<span class="code-kw">package</span> handlers
+
+<span class="code-cm">// res-handler: AI Reverse Problem-to-Solution Matching</span>
+<span class="code-kw">func</span> (h *<span class="code-fn">Handler</span>) <span class="code-fn">SearchTicketsByVector</span>(ctx context.Context, query <span class="code-kw">string</span>) ([]Ticket, <span class="code-kw">error</span>) {
+    vec, err := h.embedClient.GetEmbedding(ctx, query)
+    <span class="code-kw">if</span> err != nil { <span class="code-kw">return</span> nil, err }
+
+    <span class="code-cm">// Cosine similarity vector matching with pgvector</span>
+    querySQL := `<span class="code-str">SELECT id, title, abstract FROM tickets 
+                 ORDER BY embedding &lt;=&gt; $1 LIMIT 10</span>`
+    <span class="code-kw">return</span> h.db.QueryTickets(ctx, querySQL, pgvector.NewVector(vec))
+}`
+    },
+    {
+      type: 'web',
       typeName: 'Shakkel LMS Platform',
       actionText: 'Visit Live LMS (learn.shakkel.store)',
       actionUrl: 'https://learn.shakkel.store/',
