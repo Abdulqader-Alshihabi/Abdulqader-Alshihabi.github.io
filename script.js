@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // 7. Works Dual-Monitor Interactive Showcase & Category Switcher
-  const typePills = document.querySelectorAll('.type-pill');
+  const typePills = document.querySelectorAll('.project-type-selector .type-pill');
   const codeFileName = document.getElementById('codeFileName');
   const codeSnippetArea = document.getElementById('codeSnippetArea');
   const desktopPreviewImg = document.getElementById('desktopPreviewImg');
@@ -144,77 +144,103 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       type: 'web',
       typeName: 'Graduation Project (CRIS)',
-      actionText: 'View LearningHub Repo',
-      actionUrl: 'https://github.com/Abdulqader-Alshihabi/LearningHub',
+      actionText: 'View CRIS Capstone Case Study',
+      actionUrl: 'https://github.com/Abdulqader-Alshihabi/Islamic-University-CRIS',
       previewImg: 'assets/images/projects/project_singleton.png',
-      codeFile: 'CRISPlatform.tsx',
-      codeSnippet: `<span class="code-kw">import</span> React, { useState, useEffect } <span class="code-kw">from</span> <span class="code-str">'react'</span>;
-<span class="code-kw">import</span> { ResearchEngine, AnalyticsGrid } <span class="code-kw">from</span> <span class="code-str">'@/core'</span>;
-
-<span class="code-cm">// CRIS - Academic &amp; Research Intelligence Platform (Graduation Project)</span>
-<span class="code-kw">export const</span> <span class="code-fn">CRISPlatform</span> = () => {
-  <span class="code-kw">const</span> [query, setQuery] = <span class="code-fn">useState</span>(<span class="code-str">""</span>);
-  <span class="code-kw">const</span> [metrics, setMetrics] = <span class="code-fn">useState</span>(<span class="code-var">null</span>);
-
-  <span class="code-cm">// Orchestrate real-time query parsing &amp; faculty research intelligence</span>
-  <span class="code-kw">return</span> (
-    &lt;<span class="code-tag">section</span> <span class="code-var">className</span>=<span class="code-str">"cris-workspace"</span>&gt;
-      &lt;<span class="code-tag">ResearchEngine</span>
-        <span class="code-var">title</span>=<span class="code-str">"Consultation &amp; Research Hub"</span>
-        <span class="code-var">institution</span>=<span class="code-str">"Islamic University"</span>
-        <span class="code-var">onSearch</span>={(q) =&gt; <span class="code-fn">dispatchQuery</span>(q)}
-      /&gt;
-      &lt;<span class="code-tag">AnalyticsGrid</span> <span class="code-var">activeStatus</span>={<span class="code-str">"Live"</span>} /&gt;
-    &lt;/<span class="code-tag">section</span>&gt;
-  );
-};`
+      codeFile: 'scopus_etl_reconciliation.sql',
+      codeSnippet: `<span class="code-kw">CREATE OR REPLACE PROCEDURE</span> <span class="code-fn">import_scopus_from_staging</span>()
+<span class="code-kw">LANGUAGE</span> plpgsql <span class="code-kw">AS</span> $$
+<span class="code-kw">BEGIN</span>
+  <span class="code-cm">-- Deduplicate and reconcile Scopus works with OpenAlex corpus</span>
+  <span class="code-kw">INSERT INTO</span> works (title, doi, sources, publication_year, citations_count)
+  <span class="code-kw">SELECT</span> s.title, s.doi, <span class="code-fn">ARRAY</span>[<span class="code-str">'scopus'</span>], s.year, s.citations
+  <span class="code-kw">FROM</span> scopus_works_staging s
+  <span class="code-kw">ON CONFLICT</span> (doi) <span class="code-kw">DO UPDATE</span>
+  <span class="code-kw">SET</span> sources = <span class="code-fn">array_append</span>(works.sources, <span class="code-str">'scopus'</span>);
+<span class="code-kw">END</span>;
+$$;`
     },
     {
-      type: 'mobile',
-      typeName: 'Enterprise ERP Suite',
-      actionText: 'View Shakkel Case Study',
-      actionUrl: 'https://github.com/Abdulqader-Alshihabi/Industrial_Shakkel',
+      type: 'web',
+      typeName: 'Shakkel LMS Platform',
+      actionText: 'Visit Live LMS (learn.shakkel.store)',
+      actionUrl: 'https://learn.shakkel.store/',
+      previewImg: 'assets/images/projects/project_singleton.png',
+      codeFile: 'permission_matrix_probe.sql',
+      codeSnippet: `<span class="code-cm">-- Shakkel Corporate LMS: Row Level Security Matrix</span>
+<span class="code-kw">CREATE POLICY</span> <span class="code-fn">"Enrolled trainees can access curriculum lessons"</span>
+<span class="code-kw">ON</span> lessons <span class="code-kw">FOR SELECT TO</span> authenticated
+<span class="code-kw">USING</span> (
+  <span class="code-kw">EXISTS</span> (
+    <span class="code-kw">SELECT</span> 1 <span class="code-kw">FROM</span> course_registrations cr
+    <span class="code-kw">WHERE</span> cr.course_id = lessons.course_id
+      <span class="code-kw">AND</span> cr.user_id = <span class="code-fn">auth.uid</span>()
+      <span class="code-kw">AND</span> cr.status = <span class="code-str">'approved'</span>
+  )
+);`
+    },
+    {
+      type: 'web',
+      typeName: 'Shakkel Industrial Store',
+      actionText: 'Visit Production Store (shakkel.store)',
+      actionUrl: 'https://shakkel.store/',
       previewImg: 'assets/images/projects/project_mobile_screen.png',
-      codeFile: 'hrm_payroll_sync.py',
-      codeSnippet: `<span class="code-kw">from</span> rest_framework <span class="code-kw">import</span> viewsets, status
-<span class="code-kw">from</span> rest_framework.response <span class="code-kw">import</span> Response
-<span class="code-kw">from</span> .models <span class="code-kw">import</span> EmployeeRecord, PayrollAudit
-<span class="code-kw">from</span> .integrations <span class="code-kw">import</span> FinanceBridge
+      codeFile: 'industrial_rfq_bridge.ts',
+      codeSnippet: `<span class="code-kw">import</span> { supabase } <span class="code-kw">from</span> <span class="code-str">'@/lib/supabaseClient'</span>;
 
-<span class="code-cm"># Asaqefah ERP: Automated HR-to-Finance Ledger Service</span>
-<span class="code-kw">class</span> <span class="code-fn">HRMPayrollSyncViewSet</span>(viewsets.ModelViewSet):
-    queryset = EmployeeRecord.objects.filter(is_active=<span class="code-var">True</span>)
-
-    <span class="code-kw">def</span> <span class="code-fn">sync_department_finance</span>(self, request, pk=<span class="code-var">None</span>):
-        audit = FinanceBridge.calculate_payroll_ledger(pk)
-        <span class="code-kw">return</span> Response({
-            <span class="code-str">"status"</span>: <span class="code-str">"synced"</span>,
-            <span class="code-str">"ledger_id"</span>: audit.id,
-            <span class="code-str">"timestamp"</span>: audit.generated_at
-        }, status=status.HTTP_200_OK)`
+<span class="code-cm">// Dynamic B2B RFQ Quotation Engine for Packaging</span>
+<span class="code-kw">export async function</span> <span class="code-fn">submitIndustrialRFQ</span>(payload: RFQPayload) {
+  <span class="code-kw">const</span> { data, error } = <span class="code-kw">await</span> supabase
+    .<span class="code-fn">rpc</span>(<span class="code-str">'create_quote_with_items'</span>, {
+      p_items: payload.cartItems,
+      p_vat_rate: 0.15,
+      p_company_vat: payload.taxNumber
+    });
+  <span class="code-kw">if</span> (error) <span class="code-kw">throw</span> error;
+  <span class="code-kw">return</span> data;
+}`
     },
     {
-      type: 'ml',
-      typeName: 'AI & Vision Model',
-      actionText: 'View Movie Organizer Repo',
-      actionUrl: 'https://github.com/Abdulqader-Alshihabi/Movie-Organizer-Desktop-App',
+      type: 'web',
+      typeName: 'LearnHub LMS Platform',
+      actionText: 'Launch Live Demo (GitHub Pages)',
+      actionUrl: 'https://abdulqader-alshihabi.github.io/LearningHub/',
+      previewImg: 'assets/images/projects/project_singleton.png',
+      codeFile: 'useCourses.ts',
+      codeSnippet: `<span class="code-kw">import</span> { useQuery } <span class="code-kw">from</span> <span class="code-str">'@tanstack/react-query'</span>;
+<span class="code-kw">import</span> { fallbackCourses } <span class="code-kw">from</span> <span class="code-str">'@/data/seedData'</span>;
+
+<span class="code-cm">// Resilient LMS Course Catalog with Offline Demo Mode</span>
+<span class="code-kw">export function</span> <span class="code-fn">useCourses</span>() {
+  <span class="code-kw">return</span> <span class="code-fn">useQuery</span>({
+    queryKey: [<span class="code-str">'courses'</span>],
+    queryFn: <span class="code-kw">async</span> () => {
+      <span class="code-kw">const</span> { data } = <span class="code-kw">await</span> supabase.from(<span class="code-str">'courses'</span>).select(<span class="code-str">'*'</span>);
+      <span class="code-kw">return</span> data?.length ? data : fallbackCourses;
+    }
+  });
+}`
+    },
+    {
+      type: 'desktop',
+      typeName: 'CineVault Movie App',
+      actionText: 'Launch Live CineVault App',
+      actionUrl: 'https://abdulqader-alshihabi.github.io/Movie-Organizer-Desktop-App/',
       previewImg: 'assets/images/projects/project_ml.png',
-      codeFile: 'vision_transformer_kaust.py',
-      codeSnippet: `<span class="code-kw">import</span> torch
-<span class="code-kw">import</span> torch.nn <span class="code-kw">as</span> nn
-<span class="code-kw">from</span> torchvision.models <span class="code-kw">import</span> vit_b_16
+      codeFile: 'movie_organizer.py',
+      codeSnippet: `<span class="code-kw">from</span> PyQt5.QtCore <span class="code-kw">import</span> QPropertyAnimation, QEasingCurve
+<span class="code-kw">from</span> PyQt5.QtWidgets <span class="code-kw">import</span> QGraphicsDropShadowEffect
 
-<span class="code-cm"># KAUST Academy &amp; UPM: Computer Vision Deep Learning Classifier</span>
-<span class="code-kw">class</span> <span class="code-fn">VisionTransformerClassifier</span>(nn.Module):
-    <span class="code-kw">def</span> <span class="code-fn">__init__</span>(self, num_classes=<span class="code-str">10</span>, pretrained=<span class="code-var">True</span>):
-        super().<span class="code-fn">__init__</span>()
-        self.backbone = vit_b_16(weights=<span class="code-str">"DEFAULT"</span>)
-        self.backbone.heads = nn.Linear(<span class="code-str">768</span>, num_classes)
-
-    <span class="code-kw">def</span> <span class="code-fn">forward</span>(self, x):
-        features = self.backbone(x)
-        <span class="code-kw">return</span> torch.softmax(features, dim=-<span class="code-str">1</span>)
-<span class="code-cm"># KAUST UPM Benchmark: Val Acc 98.74% | Loss 0.038</span>`
+<span class="code-cm"># CineVault: Netflix-Style Avatar Scaling &amp; Ambient Glow</span>
+<span class="code-kw">def</span> <span class="code-fn">apply_avatar_hover_effect</span>(self, avatar_widget):
+    glow = QGraphicsDropShadowEffect(avatar_widget)
+    glow.setColor(QColor(229, 9, 20, 180))
+    glow.setBlurRadius(24)
+    avatar_widget.setGraphicsEffect(glow)
+    
+    anim = QPropertyAnimation(avatar_widget, b<span class="code-str">"geometry"</span>)
+    anim.setEasingCurve(QEasingCurve.OutCubic)
+    anim.start()`
     }
   ];
 

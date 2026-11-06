@@ -1133,6 +1133,7 @@ img {
   align-items: center;
   gap: 12px;
   margin: 10px auto 10px;
+  flex-wrap: wrap;
 }
 
 .type-pill {
