@@ -244,7 +244,7 @@ function initPortfolio() {
     },
     {
       categories: ['web', 'ai'],
-      typeName: 'res-handler (AI Search)',
+      typeName: 'res-handler',
       actionText: 'View res-handler Case Study',
       actionUrl: 'https://github.com/Abdulqader-Alshihabi/res-handler',
       previewImg: 'assets/images/projects/res_handler.jpg',
