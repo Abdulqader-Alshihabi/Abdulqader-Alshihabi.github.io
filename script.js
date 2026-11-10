@@ -448,6 +448,16 @@ function initPortfolio() {
     }
   ];
 
+  // Preload all project images into browser cache immediately for instantaneous zero-delay display
+  if (typeof Image !== 'undefined') {
+    projectsData.forEach(p => {
+      if (p.previewImg) {
+        const img = new Image();
+        img.src = p.previewImg;
+      }
+    });
+  }
+
   let currentCategory = 'web';
   let currentSubIndex = 0;
 
@@ -472,16 +482,10 @@ function initPortfolio() {
     if (codeFileName) codeFileName.textContent = project.codeFile;
     if (codeSnippetArea) codeSnippetArea.innerHTML = project.codeSnippet;
 
-    // Update Right Desktop Website Monitor
+    // Update Right Desktop Website Monitor (Instantaneous synchronous swap)
     if (desktopPreviewImg) {
-      desktopPreviewImg.style.opacity = '0';
-      desktopPreviewImg.style.transform = 'scale(0.98)';
-      setTimeout(() => {
-        desktopPreviewImg.src = project.previewImg;
-        desktopPreviewImg.alt = project.typeName + ' Preview';
-        desktopPreviewImg.style.opacity = '1';
-        desktopPreviewImg.style.transform = 'scale(1)';
-      }, 160);
+      desktopPreviewImg.src = project.previewImg;
+      desktopPreviewImg.alt = project.typeName + ' Preview';
     }
 
     // Update Action Link above Monitor
