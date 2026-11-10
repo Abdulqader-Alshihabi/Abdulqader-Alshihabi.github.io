@@ -163,8 +163,9 @@ function initPortfolio() {
     });
   }
 
-  // 9. Works Dual-Monitor Interactive Showcase & Category Switcher
-  const typePills = document.querySelectorAll('.works-container .type-pill');
+  // 9. Works Dual-Monitor Interactive Showcase & Category Switcher (Tier 1 & Tier 2)
+  const categoryButtons = document.querySelectorAll('.works-cat-btn');
+  const projectSubnavRow = document.getElementById('projectSubnavRow');
   const codeFileName = document.getElementById('codeFileName');
   const codeSnippetArea = document.getElementById('codeSnippetArea');
   const desktopPreviewImg = document.getElementById('desktopPreviewImg');
@@ -174,11 +175,12 @@ function initPortfolio() {
   const nextWorkBtn = document.getElementById('nextWork');
 
   /* ==========================================================================
-     PROJECTS DATA CONFIGURATION
+     PROJECTS DATA CONFIGURATION (3 Categories: Web, Mobile, ML \ DL)
      ========================================================================== */
   const projectsData = [
+    // --- 1. Web Applications (web) ---
     {
-      type: 'web',
+      category: 'web',
       typeName: 'Graduation Project (CRIS)',
       actionText: 'View CRIS Capstone Case Study',
       actionUrl: 'https://github.com/Abdulqader-Alshihabi/Islamic-University-CRIS',
@@ -203,7 +205,7 @@ function initPortfolio() {
 };`
     },
     {
-      type: 'web',
+      category: 'web',
       typeName: 'Saaed HR & Payroll ERP',
       actionText: 'View Saaed ERP Case Study',
       actionUrl: 'https://github.com/Abdulqader-Alshihabi/Sync-ERP-HR',
@@ -228,34 +230,7 @@ function initPortfolio() {
         <span class="code-kw">return</span> {<span class="code-str">"net_salary"</span>: net_payable, <span class="code-str">"wps_encrypted_record"</span>: encrypted_iban}`
     },
     {
-      type: 'web',
-      typeName: 'res-handler (AI Search)',
-      actionText: 'View res-handler Case Study',
-      actionUrl: 'https://github.com/Abdulqader-Alshihabi/res-handler',
-      previewImg: 'assets/images/projects/res_handler.jpg',
-      codeFile: 'vector_search.go',
-      codeSnippet: `<span class="code-kw">package</span> handlers
-
-<span class="code-kw">import</span> (
-    <span class="code-str">"context"</span>
-    <span class="code-str">"github.com/pgvector/pgvector-go"</span>
-)
-
-<span class="code-cm">// Project: Islamic University Research Commercialisation Engine</span>
-<span class="code-cm">// Problem: Industry problems couldn't match academic research via keywords</span>
-<span class="code-cm">// Solution: AI semantic vector search matching problems to university research</span>
-<span class="code-kw">func</span> (h *<span class="code-fn">Handler</span>) <span class="code-fn">MatchProblemToResearch</span>(ctx context.Context, query <span class="code-kw">string</span>) ([]Ticket, <span class="code-kw">error</span>) {
-    <span class="code-cm">// Generate Azure OpenAI semantic embedding vector</span>
-    vec, err := h.embedClient.<span class="code-fn">GetEmbedding</span>(ctx, query)
-    <span class="code-kw">if</span> err != nil { <span class="code-kw">return</span> nil, err }
-
-    <span class="code-cm">// Vector cosine similarity distance lookup with pgvector</span>
-    sql := "SELECT id, title, sector FROM tickets ORDER BY embedding &lt;=&gt; $1 LIMIT 5"
-    <span class="code-kw">return</span> h.db.<span class="code-fn">QueryTickets</span>(ctx, sql, pgvector.<span class="code-fn">NewVector</span>(vec))
-}`
-    },
-    {
-      type: 'web',
+      category: 'web',
       typeName: 'Shakkel LMS Platform',
       actionText: 'Visit Live LMS (learn.shakkel.store)',
       actionUrl: 'https://learn.shakkel.store/',
@@ -281,7 +256,7 @@ function initPortfolio() {
 };`
     },
     {
-      type: 'web',
+      category: 'web',
       typeName: 'Shakkel Industrial Store',
       actionText: 'Visit Production Store (shakkel.store)',
       actionUrl: 'https://shakkel.store/',
@@ -311,7 +286,7 @@ function initPortfolio() {
 }`
     },
     {
-      type: 'web',
+      category: 'web',
       typeName: 'LearnHub LMS Platform',
       actionText: 'Launch Live Demo (GitHub Pages)',
       actionUrl: 'https://abdulqader-alshihabi.github.io/LearningHub/',
@@ -336,8 +311,118 @@ function initPortfolio() {
   });
 };`
     },
+
+    // --- 2. Mobile Applications (mobile) ---
     {
-      type: 'desktop',
+      category: 'mobile',
+      typeName: 'Enterprise Mobile Suite',
+      actionText: 'View Mobile App Architecture',
+      actionUrl: 'https://github.com/Abdulqader-Alshihabi',
+      previewImg: 'assets/images/projects/project_mobile_screen.png',
+      codeFile: 'AttendanceSyncScreen.tsx',
+      codeSnippet: `<span class="code-kw">import</span> React, { useEffect, useState } <span class="code-kw">from</span> <span class="code-str">'react'</span>;
+<span class="code-kw">import</span> { View, Text, StyleSheet } <span class="code-kw">from</span> <span class="code-str">'react-native'</span>;
+<span class="code-kw">import</span> * <span class="code-kw">as</span> Location <span class="code-kw">from</span> <span class="code-str">'expo-location'</span>;
+
+<span class="code-cm">// Project: Mobile Workforce Attendance &amp; Field Operations</span>
+<span class="code-cm">// Problem: GPS spoofing &amp; unreliable offline network connectivity</span>
+<span class="code-cm">// Solution: Geofenced verification &amp; SQLite offline sync queue</span>
+<span class="code-kw">export const</span> <span class="code-fn">MobileCheckInScreen</span> = () => {
+  <span class="code-kw">const</span> [status, setStatus] = <span class="code-fn">useState</span>(<span class="code-str">'Verifying location...'</span>);
+
+  <span class="code-fn">useEffect</span>(() => {
+    (<span class="code-kw">async</span> () => {
+      <span class="code-kw">const</span> { status: perm } = <span class="code-kw">await</span> Location.<span class="code-fn">requestForegroundPermissionsAsync</span>();
+      <span class="code-kw">if</span> (perm !== <span class="code-str">'granted'</span>) <span class="code-kw">return</span> <span class="code-fn">setStatus</span>(<span class="code-str">'Permission denied'</span>);
+      <span class="code-kw">const</span> loc = <span class="code-kw">await</span> Location.<span class="code-fn">getCurrentPositionAsync</span>({ accuracy: 6 });
+      <span class="code-fn">setStatus</span>(\`Verified within campus zone (\${loc.coords.latitude.toFixed(3)})\`);
+    })();
+  }, []);
+
+  <span class="code-kw">return</span> &lt;<span class="code-tag">View</span> <span class="code-var">style</span>={styles.container}&gt;&lt;<span class="code-tag">Text</span>&gt;{status}&lt;/<span class="code-tag">Text</span>&gt;&lt;/<span class="code-tag">View</span>&gt;;
+};`
+    },
+    {
+      category: 'mobile',
+      typeName: 'Saaed Self-Service Mobile',
+      actionText: 'View Saaed Mobile App',
+      actionUrl: 'https://github.com/Abdulqader-Alshihabi/Sync-ERP-HR',
+      previewImg: 'assets/images/projects/project_mobile_screen.png',
+      codeFile: 'payroll_request_bloc.dart',
+      codeSnippet: `<span class="code-kw">import</span> <span class="code-str">'package:flutter_bloc/flutter_bloc.dart'</span>;
+<span class="code-kw">import</span> <span class="code-str">'package:local_auth/local_auth.dart'</span>;
+
+<span class="code-cm">// Project: Saaed HR Mobile Self-Service</span>
+<span class="code-cm">// Problem: Employees cannot securely view payslips on mobile</span>
+<span class="code-cm">// Solution: Biometric authentication (FaceID/Fingerprint) &amp; encrypted PDF view</span>
+<span class="code-kw">class</span> <span class="code-fn">PayrollBloc</span> <span class="code-kw">extends</span> <span class="code-fn">Bloc</span>&lt;PayrollEvent, PayrollState&gt; {
+  <span class="code-kw">final</span> LocalAuthentication auth = LocalAuthentication();
+
+  PayrollBloc() : <span class="code-kw">super</span>(PayrollInitial()) {
+    on&lt;RequestPayslipEvent&gt;((event, emit) <span class="code-kw">async</span> {
+      <span class="code-kw">final</span> bool didAuth = <span class="code-kw">await</span> auth.<span class="code-fn">authenticate</span>(
+        localizedReason: <span class="code-str">'Authenticate to access monthly salary breakdown'</span>,
+      );
+      <span class="code-kw">if</span> (didAuth) {
+        emit(PayrollLoaded(slipData: event.encryptedPayload));
+      }
+    });
+  }
+}`
+    },
+
+    // --- 3. ML \ DL Projects (ai) ---
+    {
+      category: 'ai',
+      typeName: 'res-handler (AI Search)',
+      actionText: 'View res-handler Case Study',
+      actionUrl: 'https://github.com/Abdulqader-Alshihabi/res-handler',
+      previewImg: 'assets/images/projects/res_handler.jpg',
+      codeFile: 'vector_search.go',
+      codeSnippet: `<span class="code-kw">package</span> handlers
+
+<span class="code-kw">import</span> (
+    <span class="code-str">"context"</span>
+    <span class="code-str">"github.com/pgvector/pgvector-go"</span>
+)
+
+<span class="code-cm">// Project: Islamic University Research Commercialisation Engine</span>
+<span class="code-cm">// Problem: Industry problems couldn't match academic research via keywords</span>
+<span class="code-cm">// Solution: AI semantic vector search matching problems to university research</span>
+<span class="code-kw">func</span> (h *<span class="code-fn">Handler</span>) <span class="code-fn">MatchProblemToResearch</span>(ctx context.Context, query <span class="code-kw">string</span>) ([]Ticket, <span class="code-kw">error</span>) {
+    <span class="code-cm">// Generate Azure OpenAI semantic embedding vector</span>
+    vec, err := h.embedClient.<span class="code-fn">GetEmbedding</span>(ctx, query)
+    <span class="code-kw">if</span> err != nil { <span class="code-kw">return</span> nil, err }
+
+    <span class="code-cm">// Vector cosine similarity distance lookup with pgvector</span>
+    sql := "SELECT id, title, sector FROM tickets ORDER BY embedding &lt;=&gt; $1 LIMIT 5"
+    <span class="code-kw">return</span> h.db.<span class="code-fn">QueryTickets</span>(ctx, sql, pgvector.<span class="code-fn">NewVector</span>(vec))
+}`
+    },
+    {
+      category: 'ai',
+      typeName: 'Vision Transformer (ViT)',
+      actionText: 'View ViT Architecture',
+      actionUrl: 'https://github.com/Abdulqader-Alshihabi',
+      previewImg: 'assets/images/projects/project_ml.png',
+      codeFile: 'vit_transformer_engine.py',
+      codeSnippet: `<span class="code-kw">import</span> torch
+<span class="code-kw">import</span> torch.nn <span class="code-kw">as</span> nn
+
+<span class="code-cm"># Project: Vision Transformer (ViT-B/16) for Medical Image Diagnosis</span>
+<span class="code-cm"># Problem: CNNs lose long-range spatial context in high-resolution scans</span>
+<span class="code-cm"># Solution: Multi-head self-attention on non-overlapping 16x16 image patches</span>
+<span class="code-kw">class</span> <span class="code-fn">PatchEmbedding</span>(nn.Module):
+    <span class="code-kw">def</span> <span class="code-fn">__init__</span>(self, img_size=224, patch_size=16, in_channels=3, embed_dim=768):
+        <span class="code-fn">super</span>().__init__()
+        self.proj = nn.Conv2d(in_channels, embed_dim, kernel_size=patch_size, stride=patch_size)
+
+    <span class="code-kw">def</span> <span class="code-fn">forward</span>(self, x):
+        <span class="code-cm"># [B, C, H, W] -&gt; [B, embed_dim, num_patches] -&gt; [B, num_patches, embed_dim]</span>
+        <span class="code-kw">return</span> self.proj(x).flatten(2).transpose(1, 2)`
+    },
+    {
+      category: 'ai',
       typeName: 'CineVault Movies',
       actionText: 'Launch Live CineVault App',
       actionUrl: 'https://abdulqader-alshihabi.github.io/Movie-Organizer-Desktop-App/',
@@ -363,16 +448,25 @@ function initPortfolio() {
     }
   ];
 
-  let currentProjectIdx = 0;
+  let currentCategory = 'web';
+  let currentSubIndex = 0;
 
-  const renderProject = (idx) => {
-    currentProjectIdx = (idx + projectsData.length) % projectsData.length;
-    const project = projectsData[currentProjectIdx];
+  const getCategoryProjects = () => projectsData.filter(p => p.category === currentCategory);
 
-    // Update Pills
-    typePills.forEach((pill) => {
-      pill.classList.toggle('active', parseInt(pill.dataset.index) === currentProjectIdx);
-    });
+  const renderProject = (subIdx) => {
+    const catProjects = getCategoryProjects();
+    if (!catProjects.length) return;
+
+    currentSubIndex = (subIdx + catProjects.length) % catProjects.length;
+    const project = catProjects[currentSubIndex];
+
+    // Update active sub-pill
+    if (projectSubnavRow) {
+      const pills = projectSubnavRow.querySelectorAll('.project-sub-pill');
+      pills.forEach((pill, idx) => {
+        pill.classList.toggle('active', idx === currentSubIndex);
+      });
+    }
 
     // Update Left Portrait Code Monitor
     if (codeFileName) codeFileName.textContent = project.codeFile;
@@ -387,7 +481,7 @@ function initPortfolio() {
         desktopPreviewImg.alt = project.typeName + ' Preview';
         desktopPreviewImg.style.opacity = '1';
         desktopPreviewImg.style.transform = 'scale(1)';
-      }, 180);
+      }, 160);
     }
 
     // Update Action Link above Monitor
@@ -395,24 +489,58 @@ function initPortfolio() {
     if (worksViewLink) worksViewLink.href = project.actionUrl;
   };
 
-  // Initial Render
-  renderProject(0);
+  const renderSubnav = () => {
+    if (!projectSubnavRow) return;
+    const catProjects = getCategoryProjects();
+    projectSubnavRow.innerHTML = '';
+    catProjects.forEach((p, idx) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'project-sub-pill' + (idx === currentSubIndex ? ' active' : '');
+      btn.classList.add('project-sub-pill');
+      if (idx === currentSubIndex) btn.classList.add('active');
+      btn.dataset.index = idx;
+      btn.textContent = p.typeName;
+      btn.addEventListener('click', () => {
+        renderProject(idx);
+      });
+      projectSubnavRow.appendChild(btn);
+    });
+  };
 
-  // Type Pills Clicks
-  typePills.forEach((pill) => {
-    pill.addEventListener('click', () => {
-      const idx = parseInt(pill.dataset.index);
-      renderProject(idx);
+  const selectCategory = (category) => {
+    currentCategory = category;
+    currentSubIndex = 0;
+
+    categoryButtons.forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.category === currentCategory);
+    });
+
+    renderSubnav();
+    renderProject(0);
+  };
+
+  // Category buttons click
+  categoryButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cat = btn.dataset.category;
+      if (cat && cat !== currentCategory) {
+        selectCategory(cat);
+      }
     });
   });
 
-  // Carousel Arrow Clicks
+  // Carousel Arrow Clicks (cycle within current category)
   if (prevWorkBtn) {
-    prevWorkBtn.addEventListener('click', () => renderProject(currentProjectIdx - 1));
+    prevWorkBtn.addEventListener('click', () => renderProject(currentSubIndex - 1));
   }
   if (nextWorkBtn) {
-    nextWorkBtn.addEventListener('click', () => renderProject(currentProjectIdx + 1));
+    nextWorkBtn.addEventListener('click', () => renderProject(currentSubIndex + 1));
   }
+
+  // Initial Render
+  renderSubnav();
+  renderProject(0);
 
   /* ==========================================================================
      CERTIFICATES DATA CONFIGURATION (قسم إعداد وتعديل الشهادات)
