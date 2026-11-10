@@ -113,7 +113,49 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 7. Works Dual-Monitor Interactive Showcase & Category Switcher
+  // 6. Smooth Mouse-Wheel Slide Navigation (Anime-style Slow Fluid Scroll)
+  let isWheelLocked = false;
+  window.addEventListener('wheel', (e) => {
+    const modalEl = document.getElementById('certModal');
+    if (modalEl && modalEl.classList.contains('open')) return;
+
+    if (Math.abs(e.deltaY) < 25) return;
+
+    if (!isWheelLocked) {
+      if (e.deltaY > 0 && activeSectionIndex < sections.length - 1) {
+        e.preventDefault();
+        isWheelLocked = true;
+        scrollToSection(activeSectionIndex + 1);
+        setTimeout(() => { isWheelLocked = false; }, 850);
+      } else if (e.deltaY < 0 && activeSectionIndex > 0) {
+        e.preventDefault();
+        isWheelLocked = true;
+        scrollToSection(activeSectionIndex - 1);
+        setTimeout(() => { isWheelLocked = false; }, 850);
+      }
+    } else {
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  // 7. Call Channel Pill Interaction (Click to Call / Copy feedback)
+  const callChannelPill = document.getElementById('callChannelPill');
+  if (callChannelPill) {
+    callChannelPill.addEventListener('click', (e) => {
+      if (!/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+        // On desktop, copy to clipboard and show feedback
+        navigator.clipboard?.writeText('+966582733968');
+        const span = callChannelPill.querySelector('span');
+        if (span) {
+          const original = span.textContent;
+          span.textContent = 'Copied: +966 58 273 3968';
+          setTimeout(() => { span.textContent = original; }, 2200);
+        }
+      }
+    });
+  }
+
+  // 8. Works Dual-Monitor Interactive Showcase & Category Switcher
   const typePills = document.querySelectorAll('.project-type-selector .type-pill');
   const codeFileName = document.getElementById('codeFileName');
   const codeSnippetArea = document.getElementById('codeSnippetArea');
@@ -124,21 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const nextWorkBtn = document.getElementById('nextWork');
 
   /* ==========================================================================
-     PROJECTS DATA CONFIGURATION (قسم إعداد وتعديل المشاريع)
-     --------------------------------------------------------------------------
-     * أين تضع صور المشاريع؟ ضع صور المعاينة داخل المجلد:
-       assets/images/projects/
-     * كيفية إضافة مشروع جديد:
-       فقط انسخ أحد الكائنات بالأسفل والصقه، وغيّر البيانات:
-       {
-         type: 'web', // أو 'mobile' أو 'ml' أو 'ai'
-         typeName: 'اسم نوع المشروع (مثلاً: Flutter Mobile App)',
-         actionText: 'نص الزر (مثلاً: View on GitHub)',
-         actionUrl: 'رابط المشروع أو الريبو',
-         previewImg: 'assets/images/projects/اسم_الصورة.png',
-         codeFile: 'اسم_ملف_الكود.ts',
-         codeSnippet: `الكود الملون الذي يظهر على الشاشة العمودية`
-       }
+     PROJECTS DATA CONFIGURATION
      ========================================================================== */
   const projectsData = [
     {
@@ -146,61 +174,76 @@ document.addEventListener('DOMContentLoaded', () => {
       typeName: 'Graduation Project (CRIS)',
       actionText: 'View CRIS Capstone Case Study',
       actionUrl: 'https://github.com/Abdulqader-Alshihabi/Islamic-University-CRIS',
-      previewImg: 'assets/images/projects/project_singleton.png',
-      codeFile: 'scopus_etl_reconciliation.sql',
-      codeSnippet: `<span class="code-kw">CREATE OR REPLACE PROCEDURE</span> <span class="code-fn">import_scopus_from_staging</span>()
-<span class="code-kw">LANGUAGE</span> plpgsql <span class="code-kw">AS</span> $$
-<span class="code-kw">BEGIN</span>
-  <span class="code-cm">-- Deduplicate and reconcile Scopus works with OpenAlex corpus</span>
-  <span class="code-kw">INSERT INTO</span> works (title, doi, sources, publication_year, citations_count)
-  <span class="code-kw">SELECT</span> s.title, s.doi, <span class="code-fn">ARRAY</span>[<span class="code-str">'scopus'</span>], s.year, s.citations
-  <span class="code-kw">FROM</span> scopus_works_staging s
-  <span class="code-kw">ON CONFLICT</span> (doi) <span class="code-kw">DO UPDATE</span>
-  <span class="code-kw">SET</span> sources = <span class="code-fn">array_append</span>(works.sources, <span class="code-str">'scopus'</span>);
-<span class="code-kw">END</span>;
-$$;`
+      previewImg: 'assets/images/projects/cris_showcase.png',
+      codeFile: 'CRISAnalytics.tsx',
+      codeSnippet: `<span class="code-kw">import</span> React, { useState } <span class="code-kw">from</span> <span class="code-str">'react'</span>;
+<span class="code-kw">import</span> { ScopusAPI, OpenAlexBridge } <span class="code-kw">from</span> <span class="code-str">'@/core'</span>;
+
+<span class="code-cm">// Project: Islamic University CRIS (Research Intelligence)</span>
+<span class="code-cm">// Problem: Fragmented research data &amp; unindexed Scopus publications</span>
+<span class="code-cm">// Solution: Automated multi-source deduplication &amp; quartile analytics</span>
+<span class="code-kw">export const</span> <span class="code-fn">CRISAnalyticsPlatform</span> = () => {
+  <span class="code-kw">const</span> [metrics, setMetrics] = <span class="code-fn">useState</span>({ verified: <span class="code-var">true</span> });
+
+  <span class="code-cm">// Reconcile and deduplicate Scopus &amp; OpenAlex publications</span>
+  <span class="code-kw">const</span> <span class="code-fn">syncPublications</span> = <span class="code-kw">async</span> (doi: <span class="code-var">string</span>) => {
+    <span class="code-kw">const</span> verifiedRecord = <span class="code-kw">await</span> ScopusAPI.<span class="code-fn">reconcileDOI</span>(doi);
+    <span class="code-fn">setMetrics</span>(verifiedRecord);
+  };
+
+  <span class="code-kw">return</span> &lt;<span class="code-tag">ExecutiveCockpit</span> <span class="code-var">data</span>={metrics} <span class="code-var">onSync</span>={syncPublications} /&gt;;
+};`
     },
     {
       type: 'web',
       typeName: 'Saaed HR & Payroll ERP',
       actionText: 'View Saaed ERP Case Study',
       actionUrl: 'https://github.com/Abdulqader-Alshihabi/Sync-ERP-HR',
-      previewImg: 'assets/images/projects/project_mobile_screen.png',
+      previewImg: 'assets/images/projects/saaed_erp.png',
       codeFile: 'saudi_payroll_wps.py',
       codeSnippet: `<span class="code-kw">from</span> decimal <span class="code-kw">import</span> Decimal
 <span class="code-kw">from</span> cryptography.fernet <span class="code-kw">import</span> Fernet
 
-<span class="code-cm"># Saaed ERP: Saudi Labor Law GOSI &amp; WPS Engine</span>
+<span class="code-cm"># Project: Saaed (ساعد) — Enterprise HR &amp; Payroll ERP</span>
+<span class="code-cm"># Problem: Disconnected HR/Finance &amp; manual payroll processing</span>
+<span class="code-cm"># Solution: Automated Saudi GOSI, EOS, and WPS bank file generation</span>
 <span class="code-kw">class</span> <span class="code-fn">SaudiPayrollEngine</span>:
     GOSI_SAUDI_RATE = Decimal(<span class="code-str">'0.0975'</span>)
 
-    <span class="code-kw">def</span> <span class="code-fn">calculate_wps_disbursement</span>(self, employee, base, allowances):
-        gross = base + allowances
+    <span class="code-kw">def</span> <span class="code-fn">process_monthly_payroll</span>(self, employee, base_salary, allowances):
+        gross = base_salary + allowances
         gosi = gross * self.GOSI_SAUDI_RATE <span class="code-kw">if</span> employee.is_saudi <span class="code-kw">else</span> Decimal(<span class="code-str">'0'</span>)
         net_payable = gross - gosi
 
-        <span class="code-cm"># Encrypt PII banking records before persistence</span>
+        <span class="code-cm"># Encrypt PII banking records before database ledger dispatch</span>
         encrypted_iban = Fernet(KEY).encrypt(employee.iban.encode())
-        <span class="code-kw">return</span> {<span class="code-str">"net"</span>: net_payable, <span class="code-str">"wps_payload"</span>: encrypted_iban}`
+        <span class="code-kw">return</span> {<span class="code-str">"net_salary"</span>: net_payable, <span class="code-str">"wps_encrypted_record"</span>: encrypted_iban}`
     },
     {
       type: 'web',
       typeName: 'res-handler (AI Search)',
       actionText: 'View res-handler Case Study',
       actionUrl: 'https://github.com/Abdulqader-Alshihabi/res-handler',
-      previewImg: 'assets/images/projects/project_singleton.png',
+      previewImg: 'assets/images/projects/res_handler.jpg',
       codeFile: 'vector_search.go',
       codeSnippet: `<span class="code-kw">package</span> handlers
 
-<span class="code-cm">// res-handler: AI Reverse Problem-to-Solution Matching</span>
-<span class="code-kw">func</span> (h *<span class="code-fn">Handler</span>) <span class="code-fn">SearchTicketsByVector</span>(ctx context.Context, query <span class="code-kw">string</span>) ([]Ticket, <span class="code-kw">error</span>) {
-    vec, err := h.embedClient.GetEmbedding(ctx, query)
+<span class="code-kw">import</span> (
+    <span class="code-str">"context"</span>
+    <span class="code-str">"github.com/pgvector/pgvector-go"</span>
+)
+
+<span class="code-cm">// Project: Islamic University Research Commercialisation Engine</span>
+<span class="code-cm">// Problem: Industry problems couldn't match academic research via keywords</span>
+<span class="code-cm">// Solution: AI semantic vector search matching problems to university research</span>
+<span class="code-kw">func</span> (h *<span class="code-fn">Handler</span>) <span class="code-fn">MatchProblemToResearch</span>(ctx context.Context, query <span class="code-kw">string</span>) ([]Ticket, <span class="code-kw">error</span>) {
+    <span class="code-cm">// Generate Azure OpenAI semantic embedding vector</span>
+    vec, err := h.embedClient.<span class="code-fn">GetEmbedding</span>(ctx, query)
     <span class="code-kw">if</span> err != nil { <span class="code-kw">return</span> nil, err }
 
-    <span class="code-cm">// Cosine similarity vector matching with pgvector</span>
-    querySQL := `<span class="code-str">SELECT id, title, abstract FROM tickets 
-                 ORDER BY embedding &lt;=&gt; $1 LIMIT 10</span>`
-    <span class="code-kw">return</span> h.db.QueryTickets(ctx, querySQL, pgvector.NewVector(vec))
+    <span class="code-cm">// Vector cosine similarity distance lookup with pgvector</span>
+    sql := "SELECT id, title, sector FROM tickets ORDER BY embedding &lt;=&gt; $1 LIMIT 5"
+    <span class="code-kw">return</span> h.db.<span class="code-fn">QueryTickets</span>(ctx, sql, pgvector.<span class="code-fn">NewVector</span>(vec))
 }`
     },
     {
@@ -208,39 +251,55 @@ $$;`
       typeName: 'Shakkel LMS Platform',
       actionText: 'Visit Live LMS (learn.shakkel.store)',
       actionUrl: 'https://learn.shakkel.store/',
-      previewImg: 'assets/images/projects/project_singleton.png',
-      codeFile: 'permission_matrix_probe.sql',
-      codeSnippet: `<span class="code-cm">-- Shakkel Corporate LMS: Row Level Security Matrix</span>
-<span class="code-kw">CREATE POLICY</span> <span class="code-fn">"Enrolled trainees can access curriculum lessons"</span>
-<span class="code-kw">ON</span> lessons <span class="code-kw">FOR SELECT TO</span> authenticated
-<span class="code-kw">USING</span> (
-  <span class="code-kw">EXISTS</span> (
-    <span class="code-kw">SELECT</span> 1 <span class="code-kw">FROM</span> course_registrations cr
-    <span class="code-kw">WHERE</span> cr.course_id = lessons.course_id
-      <span class="code-kw">AND</span> cr.user_id = <span class="code-fn">auth.uid</span>()
-      <span class="code-kw">AND</span> cr.status = <span class="code-str">'approved'</span>
-  )
-);`
+      previewImg: 'assets/images/projects/shakkel_learn.png',
+      codeFile: 'CourseCurriculumBuilder.tsx',
+      codeSnippet: `<span class="code-kw">import</span> React <span class="code-kw">from</span> <span class="code-str">'react'</span>;
+<span class="code-kw">import</span> { useAuthRole } <span class="code-kw">from</span> <span class="code-str">'@/hooks/useAuth'</span>;
+<span class="code-kw">import</span> { TiptapEditor } <span class="code-kw">from</span> <span class="code-str">'@/components/editor'</span>;
+
+<span class="code-cm">// Project: Shakkel Learn — Corporate Workforce Training LMS</span>
+<span class="code-cm">// Problem: Fragmented industrial training &amp; lack of role access control</span>
+<span class="code-cm">// Solution: Multi-tenant RBAC, Tiptap course builder &amp; exam integrity</span>
+<span class="code-kw">export const</span> <span class="code-fn">CourseCurriculumBuilder</span> = ({ courseId }: { courseId: <span class="code-var">string</span> }) => {
+  <span class="code-kw">const</span> { isAuthorized } = <span class="code-fn">useAuthRole</span>([<span class="code-str">'instructor'</span>, <span class="code-str">'admin'</span>]);
+
+  <span class="code-cm">// Enforce PostgreSQL RLS access security during lesson updates</span>
+  <span class="code-kw">const</span> <span class="code-fn">handleSaveLesson</span> = <span class="code-kw">async</span> (lessonData: <span class="code-var">LessonPayload</span>) => {
+    <span class="code-kw">if</span> (!isAuthorized) <span class="code-kw">throw new</span> <span class="code-fn">Error</span>(<span class="code-str">'Unauthorized'</span>);
+    <span class="code-kw">await</span> <span class="code-fn">saveCurriculumModules</span>(courseId, lessonData);
+  };
+
+  <span class="code-kw">return</span> &lt;<span class="code-tag">TiptapEditor</span> <span class="code-var">onSave</span>={handleSaveLesson} <span class="code-var">lang</span>=<span class="code-str">"ar"</span> /&gt;;
+};`
     },
     {
       type: 'web',
       typeName: 'Shakkel Industrial Store',
       actionText: 'Visit Production Store (shakkel.store)',
       actionUrl: 'https://shakkel.store/',
-      previewImg: 'assets/images/projects/project_mobile_screen.png',
-      codeFile: 'industrial_rfq_bridge.ts',
-      codeSnippet: `<span class="code-kw">import</span> { supabase } <span class="code-kw">from</span> <span class="code-str">'@/lib/supabaseClient'</span>;
+      previewImg: 'assets/images/projects/shakkel_store.png',
+      codeFile: 'IndustrialRFQEngine.tsx',
+      codeSnippet: `<span class="code-kw">import</span> { useState } <span class="code-kw">from</span> <span class="code-str">'react'</span>;
+<span class="code-kw">import</span> { supabase } <span class="code-kw">from</span> <span class="code-str">'@/lib/supabaseClient'</span>;
 
-<span class="code-cm">// Dynamic B2B RFQ Quotation Engine for Packaging</span>
-<span class="code-kw">export async function</span> <span class="code-fn">submitIndustrialRFQ</span>(payload: RFQPayload) {
-  <span class="code-kw">const</span> { data, error } = <span class="code-kw">await</span> supabase
-    .<span class="code-fn">rpc</span>(<span class="code-str">'create_quote_with_items'</span>, {
-      p_items: payload.cartItems,
-      p_vat_rate: 0.15,
-      p_company_vat: payload.taxNumber
+<span class="code-cm">// Project: Shakkel Industrial &amp; Packaging E-Commerce</span>
+<span class="code-cm">// Problem: Slow manual email/phone quotation cycles for bulk packaging</span>
+<span class="code-cm">// Solution: Dynamic automated RFQ quote calculation with 15% VAT &amp; live sync</span>
+<span class="code-kw">export function</span> <span class="code-fn">useQuotationRequest</span>() {
+  <span class="code-kw">const</span> [quoteStatus, setQuoteStatus] = <span class="code-fn">useState</span>(<span class="code-str">'idle'</span>);
+
+  <span class="code-kw">const</span> <span class="code-fn">submitRFQ</span> = <span class="code-kw">async</span> (cartItems: <span class="code-var">Item</span>[], companyCR: <span class="code-var">string</span>) => {
+    <span class="code-fn">setQuoteStatus</span>(<span class="code-str">'calculating'</span>);
+    <span class="code-kw">const</span> { data } = <span class="code-kw">await</span> supabase.<span class="code-fn">rpc</span>(<span class="code-str">'create_quote_with_items'</span>, {
+      p_items: cartItems,
+      p_vat: 0.15,
+      p_company_cr: companyCR
     });
-  <span class="code-kw">if</span> (error) <span class="code-kw">throw</span> error;
-  <span class="code-kw">return</span> data;
+    <span class="code-fn">setQuoteStatus</span>(<span class="code-str">'dispatched'</span>);
+    <span class="code-kw">return</span> data;
+  };
+
+  <span class="code-kw">return</span> { submitRFQ, quoteStatus };
 }`
     },
     {
@@ -248,42 +307,51 @@ $$;`
       typeName: 'LearnHub LMS Platform',
       actionText: 'Launch Live Demo (GitHub Pages)',
       actionUrl: 'https://abdulqader-alshihabi.github.io/LearningHub/',
-      previewImg: 'assets/images/projects/project_singleton.png',
-      codeFile: 'useCourses.ts',
+      previewImg: 'assets/images/projects/learning_hub.png',
+      codeFile: 'ResilientCourseCatalog.tsx',
       codeSnippet: `<span class="code-kw">import</span> { useQuery } <span class="code-kw">from</span> <span class="code-str">'@tanstack/react-query'</span>;
 <span class="code-kw">import</span> { fallbackCourses } <span class="code-kw">from</span> <span class="code-str">'@/data/seedData'</span>;
+<span class="code-kw">import</span> { supabase } <span class="code-kw">from</span> <span class="code-str">'@/integrations/supabase'</span>;
 
-<span class="code-cm">// Resilient LMS Course Catalog with Offline Demo Mode</span>
-<span class="code-kw">export function</span> <span class="code-fn">useCourses</span>() {
+<span class="code-cm">// Project: LearnHub — Modern Enterprise LMS Platform</span>
+<span class="code-cm">// Problem: LMS demo failure during database standby / cold starts</span>
+<span class="code-cm">// Solution: Graceful offline seed data fallback layer ensuring 100% uptime</span>
+<span class="code-kw">export const</span> <span class="code-fn">useCourseCatalog</span> = () => {
   <span class="code-kw">return</span> <span class="code-fn">useQuery</span>({
     queryKey: [<span class="code-str">'courses'</span>],
     queryFn: <span class="code-kw">async</span> () => {
-      <span class="code-kw">const</span> { data } = <span class="code-kw">await</span> supabase.from(<span class="code-str">'courses'</span>).select(<span class="code-str">'*'</span>);
-      <span class="code-kw">return</span> data?.length ? data : fallbackCourses;
+      <span class="code-kw">const</span> { data, error } = <span class="code-kw">await</span> supabase.<span class="code-fn">from</span>(<span class="code-str">'courses'</span>).<span class="code-fn">select</span>(<span class="code-str">'*'</span>);
+      <span class="code-cm">// Instant graceful fallback if cloud instance is paused</span>
+      <span class="code-kw">if</span> (error || !data?.length) <span class="code-kw">return</span> fallbackCourses;
+      <span class="code-kw">return</span> data;
     }
   });
-}`
+};`
     },
     {
       type: 'desktop',
-      typeName: 'CineVault Movie App',
+      typeName: 'CineVault Movies',
       actionText: 'Launch Live CineVault App',
       actionUrl: 'https://abdulqader-alshihabi.github.io/Movie-Organizer-Desktop-App/',
-      previewImg: 'assets/images/projects/project_ml.png',
+      previewImg: 'assets/images/projects/cinevault.png',
       codeFile: 'movie_organizer.py',
-      codeSnippet: `<span class="code-kw">from</span> PyQt5.QtCore <span class="code-kw">import</span> QPropertyAnimation, QEasingCurve
+      codeSnippet: `<span class="code-kw">import</span> hashlib
+<span class="code-kw">from</span> PyQt5.QtCore <span class="code-kw">import</span> QPropertyAnimation, QEasingCurve
 <span class="code-kw">from</span> PyQt5.QtWidgets <span class="code-kw">import</span> QGraphicsDropShadowEffect
 
-<span class="code-cm"># CineVault: Netflix-Style Avatar Scaling &amp; Ambient Glow</span>
-<span class="code-kw">def</span> <span class="code-fn">apply_avatar_hover_effect</span>(self, avatar_widget):
-    glow = QGraphicsDropShadowEffect(avatar_widget)
-    glow.setColor(QColor(229, 9, 20, 180))
-    glow.setBlurRadius(24)
-    avatar_widget.setGraphicsEffect(glow)
-    
-    anim = QPropertyAnimation(avatar_widget, b<span class="code-str">"geometry"</span>)
-    anim.setEasingCurve(QEasingCurve.OutCubic)
-    anim.start()`
+<span class="code-cm"># Project: CineVault — Desktop Movie Organizer &amp; Profile Manager</span>
+<span class="code-cm"># Problem: Sluggish desktop UI jitter &amp; unencrypted multi-user profiles</span>
+<span class="code-cm"># Solution: Netflix-style profiles, SHA-256 security &amp; 60fps animations</span>
+<span class="code-kw">class</span> <span class="code-fn">ProfileSelectorWidget</span>:
+    <span class="code-kw">def</span> <span class="code-fn">verify_user_credentials</span>(self, entered_pin, stored_hash):
+        <span class="code-cm"># Cryptographic SHA-256 password hash verification</span>
+        <span class="code-kw">return</span> hashlib.sha256(entered_pin.encode()).hexdigest() == stored_hash
+
+    <span class="code-kw">def</span> <span class="code-fn">animate_avatar_hover</span>(self, avatar_widget):
+        <span class="code-cm"># 60fps hardware-accelerated smooth cubic easing</span>
+        anim = QPropertyAnimation(avatar_widget, b<span class="code-str">"geometry"</span>)
+        anim.setEasingCurve(QEasingCurve.OutCubic)
+        anim.start()`
     }
   ];
 
