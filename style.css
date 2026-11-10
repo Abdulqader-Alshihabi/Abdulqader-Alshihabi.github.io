@@ -796,6 +796,12 @@ img {
   color: #ffa657;
 }
 
+.exp-item-icon.edu-bg {
+  background: rgba(56, 189, 248, 0.15);
+  border: 1.5px solid rgba(56, 189, 248, 0.4);
+  color: #38bdf8;
+}
+
 .exp-item-body {
   flex: 1;
   display: flex;
@@ -846,6 +852,12 @@ img {
   background: rgba(255, 166, 87, 0.12);
   color: var(--accent-orange);
   border: 1px solid rgba(255, 166, 87, 0.35);
+}
+
+.exp-status-badge.edu {
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.35);
 }
 
 .pulse-dot {
