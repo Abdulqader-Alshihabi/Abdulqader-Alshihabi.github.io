@@ -819,6 +819,15 @@ function initPortfolio() {
           });
         });
       }
+      // Classy staggered entrance for rendered cards
+      const renderedCards = certsGrid.querySelectorAll('.cert-card');
+      renderedCards.forEach((card, idx) => {
+        card.classList.add('anim-reveal');
+        card.style.transitionDelay = `${idx * 0.06}s`;
+        requestAnimationFrame(() => {
+          card.classList.add('is-revealed');
+        });
+      });
     }, 140);
   };
 
@@ -909,6 +918,38 @@ function initPortfolio() {
 
   // Initial Certificates Render
   renderCertificates();
+
+  // 10. Classy & Formal Reveal-on-Scroll Orchestrator
+  const revealElements = document.querySelectorAll('.anim-reveal, .anim-scale');
+
+  if (typeof IntersectionObserver !== 'undefined') {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      root: snapContainer || null,
+      threshold: 0.12,
+      rootMargin: '0px 0px -30px 0px'
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Reveal Hero section elements immediately on initial load
+    setTimeout(() => {
+      const heroSection = document.getElementById('hero');
+      if (heroSection) {
+        heroSection.querySelectorAll('.anim-reveal, .anim-scale').forEach(el => {
+          el.classList.add('is-revealed');
+        });
+      }
+    }, 50);
+  } else {
+    revealElements.forEach(el => el.classList.add('is-revealed'));
+  }
 
   // Initialize first active section indicator
   if (sections.length > 0) {

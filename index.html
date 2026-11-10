@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=20261110_v8">
+  <link rel="stylesheet" href="style.css?v=20261110_v9">
 </head>
 <body>
 
@@ -64,7 +64,7 @@
     <!-- 1. Hero Section -->
     <section class="section hero-section" id="hero">
       <!-- Top Navigation Header (Hero only) -->
-      <header class="top-nav" id="topNav">
+      <header class="top-nav anim-reveal" id="topNav">
         <div class="nav-container">
           <a href="#hero" class="logo">
             <span class="logo-code">&lt;C/&gt;</span>
@@ -114,7 +114,7 @@
 
       <div class="hero-container">
         <!-- Left: Profile Card with Cut-out Outline -->
-        <div class="profile-card-wrapper">
+        <div class="profile-card-wrapper anim-reveal anim-delay-1">
           <div class="profile-card-outline"></div>
           <div class="profile-card">
             <div class="profile-avatar-box">
@@ -170,7 +170,7 @@
         </div>
 
         <!-- Center: Main Intro Title & Description -->
-        <div class="hero-intro">
+        <div class="hero-intro anim-reveal anim-delay-2">
           <span class="code-tag">&lt;h1&gt;</span>
           <h1 class="hero-heading">
             Hey<br>
@@ -198,7 +198,7 @@
         </div>
 
         <!-- Right: Stats Pill Card -->
-        <div class="hero-stats-card">
+        <div class="hero-stats-card anim-reveal anim-delay-3">
           <div class="stat-item">
             <span class="stat-number">5</span>
             <span class="stat-label">Programming<br>Languages</span>
@@ -221,13 +221,13 @@
 
       <div class="about-container">
         <!-- Section Header Badge -->
-        <div class="section-badge-wrapper">
+        <div class="section-badge-wrapper anim-reveal">
           <div class="section-badge">About &amp; Experience</div>
         </div>
 
         <div class="about-grid">
           <!-- Text Box -->
-          <div class="about-content-card">
+          <div class="about-content-card anim-reveal anim-delay-1">
             <span class="code-tag">&lt;p&gt;</span>
             <h3 class="about-subtitle">Hello!</h3>
             <p class="about-paragraph">
@@ -246,7 +246,7 @@
           </div>
 
           <!-- Right: Professional Experience Card -->
-          <div class="about-experience-card">
+          <div class="about-experience-card anim-reveal anim-delay-2">
             <div class="exp-card-header">
               <div class="exp-title-group">
                 <div class="exp-title-icon">
@@ -340,14 +340,14 @@
 
       <div class="skills-container">
         <!-- Centered Title with Designer Code Graphic Attached -->
-        <div class="skills-title-wrapper">
+        <div class="skills-title-wrapper anim-reveal">
           <img src="assets/images/icons/code_symbol_exact.png" alt="Code Symbol" class="designer-code-graphic">
           <h2 class="section-title">Skills</h2>
         </div>
-        <p class="section-subtitle">I am striving to never stop learning and improving</p>
+        <p class="section-subtitle anim-reveal anim-delay-1">I am striving to never stop learning and improving</p>
 
         <!-- Two Category Cards -->
-        <div class="skills-cards-row">
+        <div class="skills-cards-row anim-reveal anim-delay-2">
           <div class="skill-category-card">
             <div class="skill-category-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -374,7 +374,7 @@
         </div>
 
         <!-- 10 Skill Badges (2 Balanced Rows) -->
-        <div class="skills-circles-wrapper">
+        <div class="skills-circles-wrapper anim-reveal anim-delay-3">
           <!-- Row 1: Frontend & Python -->
           <div class="skills-circles-row">
             <!-- HTML -->
@@ -490,11 +490,11 @@
       <div class="works-bg-code"></div>
 
       <div class="works-container">
-        <h2 class="works-title">Works</h2>
-        <p class="section-subtitle">I had the pleasure of working with these awesome projects</p>
+        <h2 class="works-title anim-reveal">Works</h2>
+        <p class="section-subtitle anim-reveal anim-delay-1">I had the pleasure of working with these awesome projects</p>
 
         <!-- Main Project Categories (Tier 1: Web / Mobile / AI) -->
-        <div class="works-category-bar" id="worksCategoryBar">
+        <div class="works-category-bar anim-reveal anim-delay-2" id="worksCategoryBar">
           <button type="button" class="works-cat-btn active" data-category="web" id="catBtnWeb">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="16 18 22 12 16 6"></polyline>
@@ -522,7 +522,7 @@
         </div>
 
         <!-- Dynamic Sub-Project Pills for Active Category (Tier 2) -->
-        <div class="project-subnav-row" id="projectSubnavRow">
+        <div class="project-subnav-row anim-reveal anim-delay-3" id="projectSubnavRow">
           <button type="button" class="project-sub-pill active" data-index="0">Graduation Project (CRIS)</button>
           <button type="button" class="project-sub-pill" data-index="1">Saaed HR &amp; Payroll ERP</button>
           <button type="button" class="project-sub-pill" data-index="2">Shakkel LMS Platform</button>
@@ -542,7 +542,7 @@
           <div class="works-hardware-workspace">
             
             <!-- Left: Vertical (Portrait) Code Monitor -->
-            <div class="portrait-monitor-frame">
+            <div class="portrait-monitor-frame anim-reveal anim-delay-3">
               <div class="portrait-monitor-bezel">
                 <div class="editor-titlebar">
                   <div class="editor-dots">
@@ -586,7 +586,7 @@
             </div>
 
             <!-- Right: Desktop (iMac style) Website Monitor -->
-            <div class="desktop-monitor-frame">
+            <div class="desktop-monitor-frame anim-reveal anim-delay-4">
               <!-- View Website Action directly above monitor matching Designer -->
               <div class="desktop-top-header">
                 <a href="https://github.com/Abdulqader-Alshihabi/Islamic-University-CRIS" target="_blank" rel="noopener noreferrer" class="works-view-link" id="worksViewLink">
@@ -628,11 +628,11 @@
     <!-- 5. Certificates Section (Plain Solid Background) -->
     <section class="section certs-section" id="certificates">
       <div class="certs-container">
-        <h2 class="section-title">Certificates</h2>
-        <p class="section-subtitle mono">16 verified professional credentials &amp; academic distinctions</p>
+        <h2 class="section-title anim-reveal">Certificates</h2>
+        <p class="section-subtitle mono anim-reveal anim-delay-1">16 verified professional credentials &amp; academic distinctions</p>
 
         <!-- Category Filter Pills (Styled matching Works Type Switcher) -->
-        <div class="project-type-selector certs-filter-bar">
+        <div class="project-type-selector certs-filter-bar anim-reveal anim-delay-2">
           <button class="type-pill cert-filter-btn active" data-filter="all">All (16)</button>
           <button class="type-pill cert-filter-btn" data-filter="ai">AI &amp; Machine Learning (8)</button>
           <button class="type-pill cert-filter-btn" data-filter="software">Python &amp; Data Science (7)</button>
@@ -640,7 +640,7 @@
         </div>
 
         <!-- Showcase with Side Carousel Arrows (Matching Works Carousel) -->
-        <div class="certs-showcase-wrapper">
+        <div class="certs-showcase-wrapper anim-reveal anim-delay-3">
           <button class="carousel-arrow prev-arrow" id="certPrevBtn" aria-label="Previous Page">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <polyline points="15 18 9 12 15 6"></polyline>
@@ -659,7 +659,7 @@
         </div>
 
         <!-- Pagination Dots & Status -->
-        <div class="cert-pagination-row">
+        <div class="cert-pagination-row anim-reveal anim-delay-4">
           <div class="cert-page-indicator" id="certPageIndicator"></div>
           <span class="cert-page-counter mono" id="certPageCounter">Page 1 of 4</span>
         </div>
@@ -669,11 +669,11 @@
     <!-- 6. Contact Section (Dark Theme Matching Designer & Footer Included) -->
     <section class="section contact-section" id="contact">
       <div class="contact-container">
-        <h2 class="section-title">Contact</h2>
-        <p class="section-subtitle mono">Let’s connect and build something impactful together</p>
+        <h2 class="section-title anim-reveal">Contact</h2>
+        <p class="section-subtitle mono anim-reveal anim-delay-1">Let’s connect and build something impactful together</p>
 
         <!-- Direct Contact Channels (LinkedIn, GitHub, Email, Call) -->
-        <div class="contact-channels-row">
+        <div class="contact-channels-row anim-reveal anim-delay-2">
           <a href="https://www.linkedin.com/in/abdulqader-alshihabi-859b19260" target="_blank" rel="noopener noreferrer" class="contact-channel-pill" title="LinkedIn">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
@@ -805,6 +805,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=20261110_v8"></script>
+  <script src="script.js?v=20261110_v9"></script>
 </body>
 </html>
