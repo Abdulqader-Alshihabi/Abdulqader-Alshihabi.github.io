@@ -1,12 +1,13 @@
-// Abdulqader Alshihabi Portfolio - Full-Page Scroll-Snap & Interactive Functionality
+// Abdulqader Alshihabi Portfolio - Ultra-Smooth Fluid Slider & Showcase Controller
 
-document.addEventListener('DOMContentLoaded', () => {
+function initPortfolio() {
   const snapContainer = document.getElementById('snapContainer');
   const sections = Array.from(document.querySelectorAll('section.section[id]'));
   const dockItems = document.querySelectorAll('.dock-item');
   const navLinks = document.querySelectorAll('.nav-link');
 
   let activeSectionIndex = 0;
+  let isScrolling = false;
 
   // 1. Navigation & Dock Active State Synchronizer
   const updateActiveIndicators = (sectionId) => {
@@ -19,131 +20,138 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // 2. Smoothly Navigate to Specific Section Index (For Clicks & Keys)
+  // 2. Smoothly Navigate to Specific Section Index (Anime-Style Fluid Transition)
   const scrollToSection = (index) => {
     if (index < 0 || index >= sections.length) return;
     activeSectionIndex = index;
+    const targetSec = sections[index];
+    const targetId = targetSec.getAttribute('id');
 
-    sections[activeSectionIndex].scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    });
-
-    const targetId = sections[activeSectionIndex].getAttribute('id');
     updateActiveIndicators(targetId);
+
+    if (snapContainer) {
+      snapContainer.scrollTo({
+        top: targetSec.offsetTop,
+        behavior: 'smooth'
+      });
+    } else {
+      targetSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
-  // 3. High-Performance IntersectionObserver for Lag-Free Trackpad & Mouse Scrolling
-  if ('IntersectionObserver' in window && snapContainer) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const targetId = entry.target.getAttribute('id');
-          const idx = sections.indexOf(entry.target);
-          if (idx !== -1) {
-            activeSectionIndex = idx;
-          }
-          updateActiveIndicators(targetId);
-        }
-      });
-    }, {
-      root: snapContainer,
-      threshold: 0.5
-    });
-
-    sections.forEach((sec) => observer.observe(sec));
-  } else if (snapContainer) {
-    let ticking = false;
+  // 3. Continuously Track Active Section on Real-time Scroll (Dock never gets stuck)
+  if (snapContainer) {
+    let scrollTicking = false;
     snapContainer.addEventListener('scroll', () => {
-      if (!ticking) {
+      if (!scrollTicking) {
         window.requestAnimationFrame(() => {
-          const scrollPos = snapContainer.scrollTop + (window.innerHeight / 2);
+          const scrollCenter = snapContainer.scrollTop + (snapContainer.clientHeight / 2);
+          let closestIdx = 0;
+          let minDistance = Infinity;
+
           sections.forEach((sec, idx) => {
-            const top = sec.offsetTop;
-            const height = sec.offsetHeight;
-            if (scrollPos >= top && scrollPos < top + height) {
-              activeSectionIndex = idx;
-              updateActiveIndicators(sec.getAttribute('id'));
+            const secCenter = sec.offsetTop + (sec.offsetHeight / 2);
+            const dist = Math.abs(scrollCenter - secCenter);
+            if (dist < minDistance) {
+              minDistance = dist;
+              closestIdx = idx;
             }
           });
-          ticking = false;
+
+          if (closestIdx !== activeSectionIndex && !isScrolling) {
+            activeSectionIndex = closestIdx;
+            updateActiveIndicators(sections[closestIdx].getAttribute('id'));
+          }
+          scrollTicking = false;
         });
-        ticking = true;
+        scrollTicking = true;
       }
     }, { passive: true });
   }
 
-  // 4. Keyboard Navigation (Arrow Keys / Page Down / Page Up / Space)
-  window.addEventListener('keydown', (e) => {
-    if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
-      return;
-    }
-    const modalEl = document.getElementById('certModal');
-    if (modalEl && modalEl.classList.contains('open')) {
-      return;
-    }
-
-    if (['ArrowDown', 'PageDown', ' '].includes(e.key)) {
-      if (activeSectionIndex < sections.length - 1) {
-        e.preventDefault();
-        scrollToSection(activeSectionIndex + 1);
-      }
-    } else if (['ArrowUp', 'PageUp'].includes(e.key)) {
-      if (activeSectionIndex > 0) {
-        e.preventDefault();
-        scrollToSection(activeSectionIndex - 1);
-      }
-    }
-  });
-
-  // 5. Anchor Click Navigation (Dock & Top Nav)
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener('click', function (e) {
-      const targetId = this.getAttribute('href');
-      if (targetId === '#') return;
-
-      const targetEl = document.querySelector(targetId);
-      if (targetEl) {
-        const targetIdx = sections.indexOf(targetEl);
-        if (targetIdx !== -1) {
-          e.preventDefault();
-          scrollToSection(targetIdx);
-        }
-      }
-    });
-  });
-
-  // 6. Smooth Mouse-Wheel Slide Navigation (Anime-style Slow Fluid Scroll)
-  let isWheelLocked = false;
+  // 4. Smooth Mouse-Wheel Slide Navigation (Anime-style Slow Fluid Transition)
   window.addEventListener('wheel', (e) => {
     const modalEl = document.getElementById('certModal');
     if (modalEl && modalEl.classList.contains('open')) return;
 
     if (Math.abs(e.deltaY) < 25) return;
 
-    if (!isWheelLocked) {
-      if (e.deltaY > 0 && activeSectionIndex < sections.length - 1) {
-        e.preventDefault();
-        isWheelLocked = true;
-        scrollToSection(activeSectionIndex + 1);
-        setTimeout(() => { isWheelLocked = false; }, 850);
-      } else if (e.deltaY < 0 && activeSectionIndex > 0) {
-        e.preventDefault();
-        isWheelLocked = true;
-        scrollToSection(activeSectionIndex - 1);
-        setTimeout(() => { isWheelLocked = false; }, 850);
-      }
-    } else {
-      e.preventDefault();
+    e.preventDefault();
+
+    if (isScrolling) return;
+
+    if (e.deltaY > 0 && activeSectionIndex < sections.length - 1) {
+      isScrolling = true;
+      scrollToSection(activeSectionIndex + 1);
+      setTimeout(() => { isScrolling = false; }, 850);
+    } else if (e.deltaY < 0 && activeSectionIndex > 0) {
+      isScrolling = true;
+      scrollToSection(activeSectionIndex - 1);
+      setTimeout(() => { isScrolling = false; }, 850);
     }
   }, { passive: false });
 
-  // 7. Call Channel Pill Interaction (Click to Call / Copy feedback)
+  // 5. Keyboard Navigation (Arrow Keys / Page Down / Page Up / Space)
+  window.addEventListener('keydown', (e) => {
+    if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+    const modalEl = document.getElementById('certModal');
+    if (modalEl && modalEl.classList.contains('open')) return;
+
+    if (['ArrowDown', 'PageDown', ' '].includes(e.key)) {
+      if (activeSectionIndex < sections.length - 1) {
+        e.preventDefault();
+        isScrolling = true;
+        scrollToSection(activeSectionIndex + 1);
+        setTimeout(() => { isScrolling = false; }, 850);
+      }
+    } else if (['ArrowUp', 'PageUp'].includes(e.key)) {
+      if (activeSectionIndex > 0) {
+        e.preventDefault();
+        isScrolling = true;
+        scrollToSection(activeSectionIndex - 1);
+        setTimeout(() => { isScrolling = false; }, 850);
+      }
+    }
+  });
+
+  // 6. Anchor Click Navigation (Dock & Top Nav)
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href');
+      if (targetId === '#' || !targetId.startsWith('#')) return;
+
+      const targetEl = document.querySelector(targetId);
+      if (targetEl) {
+        const targetIdx = sections.indexOf(targetEl);
+        if (targetIdx !== -1) {
+          e.preventDefault();
+          isScrolling = true;
+          scrollToSection(targetIdx);
+          setTimeout(() => { isScrolling = false; }, 850);
+          if (history.pushState) {
+            history.pushState(null, null, targetId);
+          }
+        }
+      }
+    });
+  });
+
+  // 7. Handle Initial URL Hash (e.g. #works, #certificates)
+  if (window.location.hash) {
+    const initialTarget = document.querySelector(window.location.hash);
+    if (initialTarget) {
+      const idx = sections.indexOf(initialTarget);
+      if (idx !== -1) {
+        setTimeout(() => scrollToSection(idx), 100);
+      }
+    }
+  }
+
+  // 8. Call Channel Pill Interaction (Click to Call / Copy feedback)
   const callChannelPill = document.getElementById('callChannelPill');
   if (callChannelPill) {
     callChannelPill.addEventListener('click', (e) => {
       if (!/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
-        // On desktop, copy to clipboard and show feedback
         navigator.clipboard?.writeText('+966582733968');
         const span = callChannelPill.querySelector('span');
         if (span) {
@@ -155,8 +163,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 8. Works Dual-Monitor Interactive Showcase & Category Switcher
-  const typePills = document.querySelectorAll('.project-type-selector .type-pill');
+  // 9. Works Dual-Monitor Interactive Showcase & Category Switcher
+  const typePills = document.querySelectorAll('.works-container .type-pill');
   const codeFileName = document.getElementById('codeFileName');
   const codeSnippetArea = document.getElementById('codeSnippetArea');
   const desktopPreviewImg = document.getElementById('desktopPreviewImg');
@@ -812,4 +820,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (sections.length > 0) {
     updateActiveIndicators(sections[0].getAttribute('id'));
   }
-});
+}
+
+// Bulletproof execution across all environments and cache states
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initPortfolio);
+} else {
+  initPortfolio();
+}

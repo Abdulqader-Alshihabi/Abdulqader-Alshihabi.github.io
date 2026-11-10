@@ -57,7 +57,6 @@ html, body {
   height: 100vh;
   width: 100vw;
   overflow-y: scroll;
-  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   position: relative;
