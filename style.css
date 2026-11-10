@@ -1505,6 +1505,36 @@ img {
   display: block;
 }
 
+.preview-disclaimer-pill {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  background: rgba(15, 23, 42, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #cbd5e1;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.preview-disclaimer-pill::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 8px #38bdf8;
+}
+
 .desktop-chin {
   height: 32px;
   background: linear-gradient(180deg, #e2e8f0 0%, #cbd5e1 100%);

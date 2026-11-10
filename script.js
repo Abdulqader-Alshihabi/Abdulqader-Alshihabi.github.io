@@ -223,11 +223,13 @@ function initPortfolio() {
       actionText: 'View Saaed ERP Case Study',
       actionUrl: 'https://github.com/Abdulqader-Alshihabi/Sync-ERP-HR',
       previewImg: 'assets/images/projects/saaed_erp.png',
+      disclaimer: 'AI-Generated UI Mockup • Proprietary System (NDA)',
       codeFile: 'saudi_payroll_wps.py',
       codeSnippet: `<span class="code-kw">from</span> decimal <span class="code-kw">import</span> Decimal
 <span class="code-kw">from</span> cryptography.fernet <span class="code-kw">import</span> Fernet
 
 <span class="code-cm"># Project: Saaed (ساعد) — Enterprise HR &amp; Payroll ERP</span>
+<span class="code-cm"># Note: Screen mockup is AI-generated for visual illustration (Confidential enterprise project)</span>
 <span class="code-cm"># Problem: Disconnected HR/Finance &amp; manual payroll processing</span>
 <span class="code-cm"># Solution: Automated Saudi GOSI, EOS, and WPS bank file generation</span>
 <span class="code-kw">class</span> <span class="code-fn">SaudiPayrollEngine</span>:
@@ -443,6 +445,8 @@ function initPortfolio() {
       }
       if (worksViewText) worksViewText.textContent = 'View GitHub Profile & Upcoming Repositories';
       if (worksViewLink) worksViewLink.href = 'https://github.com/Abdulqader-Alshihabi';
+      const disclaimerPill = document.getElementById('previewDisclaimerPill');
+      if (disclaimerPill) disclaimerPill.style.display = 'none';
       return;
     }
 
@@ -479,6 +483,17 @@ function initPortfolio() {
     // Update Action Link above Monitor
     if (worksViewText) worksViewText.textContent = project.actionText;
     if (worksViewLink) worksViewLink.href = project.actionUrl;
+
+    // Update AI Mockup Disclaimer Pill if applicable
+    const disclaimerPill = document.getElementById('previewDisclaimerPill');
+    if (disclaimerPill) {
+      if (project.disclaimer) {
+        disclaimerPill.textContent = project.disclaimer;
+        disclaimerPill.style.display = 'inline-flex';
+      } else {
+        disclaimerPill.style.display = 'none';
+      }
+    }
   };
 
   const renderSubnav = () => {
