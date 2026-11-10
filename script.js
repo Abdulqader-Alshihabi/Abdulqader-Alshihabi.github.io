@@ -7,7 +7,6 @@ function initPortfolio() {
   const navLinks = document.querySelectorAll('.nav-link');
 
   let activeSectionIndex = 0;
-  let isScrolling = false;
 
   // 1. Navigation & Dock Active State Synchronizer
   const updateActiveIndicators = (sectionId) => {
@@ -20,7 +19,7 @@ function initPortfolio() {
     });
   };
 
-  // 2. Smoothly Navigate to Specific Section Index (Anime-Style Fluid Transition)
+  // 2. Smoothly Navigate to Specific Section Index
   const scrollToSection = (index) => {
     if (index < 0 || index >= sections.length) return;
     activeSectionIndex = index;
@@ -39,7 +38,7 @@ function initPortfolio() {
     }
   };
 
-  // 3. Continuously Track Active Section on Real-time Scroll (Dock never gets stuck)
+  // 3. Continuously Track Active Section on Real-time Native Scroll (Zero lag, smooth 60fps tracking)
   if (snapContainer) {
     let scrollTicking = false;
     snapContainer.addEventListener('scroll', () => {
@@ -58,7 +57,7 @@ function initPortfolio() {
             }
           });
 
-          if (closestIdx !== activeSectionIndex && !isScrolling) {
+          if (closestIdx !== activeSectionIndex) {
             activeSectionIndex = closestIdx;
             updateActiveIndicators(sections[closestIdx].getAttribute('id'));
           }
@@ -69,52 +68,27 @@ function initPortfolio() {
     }, { passive: true });
   }
 
-  // 4. Smooth Mouse-Wheel Slide Navigation (Anime-style Slow Fluid Transition)
-  window.addEventListener('wheel', (e) => {
-    const modalEl = document.getElementById('certModal');
-    if (modalEl && modalEl.classList.contains('open')) return;
-
-    if (Math.abs(e.deltaY) < 25) return;
-
-    e.preventDefault();
-
-    if (isScrolling) return;
-
-    if (e.deltaY > 0 && activeSectionIndex < sections.length - 1) {
-      isScrolling = true;
-      scrollToSection(activeSectionIndex + 1);
-      setTimeout(() => { isScrolling = false; }, 850);
-    } else if (e.deltaY < 0 && activeSectionIndex > 0) {
-      isScrolling = true;
-      scrollToSection(activeSectionIndex - 1);
-      setTimeout(() => { isScrolling = false; }, 850);
-    }
-  }, { passive: false });
-
-  // 5. Keyboard Navigation (Arrow Keys / Page Down / Page Up / Space)
+  // 4. Keyboard Navigation (Arrow Keys / Page Down / Page Up)
   window.addEventListener('keydown', (e) => {
     if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
-    const modalEl = document.getElementById('certModal');
-    if (modalEl && modalEl.classList.contains('open')) return;
+    const certModal = document.getElementById('certModal');
+    const contactModal = document.getElementById('contactModal');
+    if ((certModal && certModal.classList.contains('open')) || (contactModal && contactModal.classList.contains('open'))) return;
 
-    if (['ArrowDown', 'PageDown', ' '].includes(e.key)) {
+    if (['ArrowDown', 'PageDown'].includes(e.key)) {
       if (activeSectionIndex < sections.length - 1) {
         e.preventDefault();
-        isScrolling = true;
         scrollToSection(activeSectionIndex + 1);
-        setTimeout(() => { isScrolling = false; }, 850);
       }
     } else if (['ArrowUp', 'PageUp'].includes(e.key)) {
       if (activeSectionIndex > 0) {
         e.preventDefault();
-        isScrolling = true;
         scrollToSection(activeSectionIndex - 1);
-        setTimeout(() => { isScrolling = false; }, 850);
       }
     }
   });
 
-  // 6. Anchor Click Navigation (Dock & Top Nav)
+  // 5. Anchor Click Navigation (Dock & Top Nav)
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener('click', function (e) {
       const targetId = this.getAttribute('href');
@@ -125,9 +99,7 @@ function initPortfolio() {
         const targetIdx = sections.indexOf(targetEl);
         if (targetIdx !== -1) {
           e.preventDefault();
-          isScrolling = true;
           scrollToSection(targetIdx);
-          setTimeout(() => { isScrolling = false; }, 850);
           if (history.pushState) {
             history.pushState(null, null, targetId);
           }
@@ -136,34 +108,75 @@ function initPortfolio() {
     });
   });
 
-  // 7. Handle Initial URL Hash (e.g. #works, #certificates)
+  // 6. Handle Initial URL Hash
   if (window.location.hash) {
     const initialTarget = document.querySelector(window.location.hash);
     if (initialTarget) {
       const idx = sections.indexOf(initialTarget);
       if (idx !== -1) {
-        setTimeout(() => scrollToSection(idx), 100);
+        setTimeout(() => scrollToSection(idx), 80);
       }
     }
   }
 
-  // 8. Call Channel Pill Interaction (Click to Call / Copy feedback)
-  const callChannelPill = document.getElementById('callChannelPill');
-  if (callChannelPill) {
-    callChannelPill.addEventListener('click', (e) => {
-      if (!/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
-        navigator.clipboard?.writeText('+966582733968');
-        const span = callChannelPill.querySelector('span');
-        if (span) {
-          const original = span.textContent;
-          span.textContent = 'Copied: +966 58 273 3968';
-          setTimeout(() => { span.textContent = original; }, 2200);
-        }
+  // 7. Interactive Contact Modal (WhatsApp / Direct Call / Copy options)
+  const contactModal = document.getElementById('contactModal');
+  const contactModalClose = document.getElementById('contactModalClose');
+  const contactTriggers = document.querySelectorAll('.contact-modal-trigger');
+  const copyPhoneActionBtn = document.getElementById('copyPhoneActionBtn');
+  const copyActionTitle = document.getElementById('copyActionTitle');
+  const copyActionDesc = document.getElementById('copyActionDesc');
+
+  const openContactModal = () => {
+    if (contactModal) {
+      contactModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  const closeContactModal = () => {
+    if (contactModal) {
+      contactModal.classList.remove('open');
+      document.body.style.overflow = '';
+      if (copyActionTitle) copyActionTitle.textContent = 'Copy Phone Number';
+      if (copyActionDesc) copyActionDesc.textContent = 'Copy +966 58 273 3968 to clipboard';
+    }
+  };
+
+  contactTriggers.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openContactModal();
+    });
+  });
+
+  if (contactModalClose) {
+    contactModalClose.addEventListener('click', closeContactModal);
+  }
+
+  if (contactModal) {
+    contactModal.addEventListener('click', (e) => {
+      if (e.target === contactModal) closeContactModal();
+    });
+  }
+
+  if (copyPhoneActionBtn) {
+    copyPhoneActionBtn.addEventListener('click', () => {
+      const phone = '+966582733968';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(phone).then(() => {
+          if (copyActionTitle) copyActionTitle.textContent = 'Copied to Clipboard!';
+          if (copyActionDesc) copyActionDesc.textContent = '+966 58 273 3968 copied successfully';
+          setTimeout(() => {
+            if (copyActionTitle) copyActionTitle.textContent = 'Copy Phone Number';
+            if (copyActionDesc) copyActionDesc.textContent = 'Copy +966 58 273 3968 to clipboard';
+          }, 2500);
+        });
       }
     });
   }
 
-  // 9. Works Dual-Monitor Interactive Showcase & Category Switcher (Tier 1 & Tier 2)
+  // 8. Works Dual-Monitor Interactive Showcase & Category Switcher (Tier 1 & Tier 2)
   const categoryButtons = document.querySelectorAll('.works-cat-btn');
   const projectSubnavRow = document.getElementById('projectSubnavRow');
   const codeFileName = document.getElementById('codeFileName');
@@ -175,12 +188,12 @@ function initPortfolio() {
   const nextWorkBtn = document.getElementById('nextWork');
 
   /* ==========================================================================
-     PROJECTS DATA CONFIGURATION (3 Categories: Web, Mobile, ML \ DL)
+     PROJECTS DATA CONFIGURATION (Strict Real Projects Only)
      ========================================================================== */
   const projectsData = [
-    // --- 1. Web Applications (web) ---
+    // --- Web Applications & Multi-Disciplinary Projects ---
     {
-      category: 'web',
+      categories: ['web'],
       typeName: 'Graduation Project (CRIS)',
       actionText: 'View CRIS Capstone Case Study',
       actionUrl: 'https://github.com/Abdulqader-Alshihabi/Islamic-University-CRIS',
@@ -205,7 +218,7 @@ function initPortfolio() {
 };`
     },
     {
-      category: 'web',
+      categories: ['web'],
       typeName: 'Saaed HR & Payroll ERP',
       actionText: 'View Saaed ERP Case Study',
       actionUrl: 'https://github.com/Abdulqader-Alshihabi/Sync-ERP-HR',
@@ -230,11 +243,38 @@ function initPortfolio() {
         <span class="code-kw">return</span> {<span class="code-str">"net_salary"</span>: net_payable, <span class="code-str">"wps_encrypted_record"</span>: encrypted_iban}`
     },
     {
-      category: 'web',
+      categories: ['web', 'ai'],
+      typeName: 'res-handler (AI Search)',
+      actionText: 'View res-handler Case Study',
+      actionUrl: 'https://github.com/Abdulqader-Alshihabi/res-handler',
+      previewImg: 'assets/images/projects/res_handler.jpg',
+      codeFile: 'vector_search.go',
+      codeSnippet: `<span class="code-kw">package</span> handlers
+
+<span class="code-kw">import</span> (
+    <span class="code-str">"context"</span>
+    <span class="code-str">"github.com/pgvector/pgvector-go"</span>
+)
+
+<span class="code-cm">// Project: Islamic University Research Commercialisation Engine (Web App)</span>
+<span class="code-cm">// Problem: Industry problems couldn't match academic research via keywords</span>
+<span class="code-cm">// Solution: AI semantic vector search matching problems to university research</span>
+<span class="code-kw">func</span> (h *<span class="code-fn">Handler</span>) <span class="code-fn">MatchProblemToResearch</span>(ctx context.Context, query <span class="code-kw">string</span>) ([]Ticket, <span class="code-kw">error</span>) {
+    <span class="code-cm">// Generate Azure OpenAI semantic embedding vector</span>
+    vec, err := h.embedClient.<span class="code-fn">GetEmbedding</span>(ctx, query)
+    <span class="code-kw">if</span> err != nil { <span class="code-kw">return</span> nil, err }
+
+    <span class="code-cm">// Vector cosine similarity distance lookup with pgvector</span>
+    sql := "SELECT id, title, sector FROM tickets ORDER BY embedding &lt;=&gt; $1 LIMIT 5"
+    <span class="code-kw">return</span> h.db.<span class="code-fn">QueryTickets</span>(ctx, sql, pgvector.<span class="code-fn">NewVector</span>(vec))
+}`
+    },
+    {
+      categories: ['web'],
       typeName: 'Shakkel LMS Platform',
       actionText: 'Visit Live LMS (learn.shakkel.store)',
       actionUrl: 'https://learn.shakkel.store/',
-      previewImg: 'assets/images/projects/shakkel_learn.png',
+      previewImg: 'assets/images/projects/shakkel_learn.jpg',
       codeFile: 'CourseCurriculumBuilder.tsx',
       codeSnippet: `<span class="code-kw">import</span> React <span class="code-kw">from</span> <span class="code-str">'react'</span>;
 <span class="code-kw">import</span> { useAuthRole } <span class="code-kw">from</span> <span class="code-str">'@/hooks/useAuth'</span>;
@@ -256,7 +296,7 @@ function initPortfolio() {
 };`
     },
     {
-      category: 'web',
+      categories: ['web'],
       typeName: 'Shakkel Industrial Store',
       actionText: 'Visit Production Store (shakkel.store)',
       actionUrl: 'https://shakkel.store/',
@@ -286,7 +326,7 @@ function initPortfolio() {
 }`
     },
     {
-      category: 'web',
+      categories: ['web'],
       typeName: 'LearnHub LMS Platform',
       actionText: 'Launch Live Demo (GitHub Pages)',
       actionUrl: 'https://abdulqader-alshihabi.github.io/LearningHub/',
@@ -311,118 +351,8 @@ function initPortfolio() {
   });
 };`
     },
-
-    // --- 2. Mobile Applications (mobile) ---
     {
-      category: 'mobile',
-      typeName: 'Enterprise Mobile Suite',
-      actionText: 'View Mobile App Architecture',
-      actionUrl: 'https://github.com/Abdulqader-Alshihabi',
-      previewImg: 'assets/images/projects/project_mobile_screen.png',
-      codeFile: 'AttendanceSyncScreen.tsx',
-      codeSnippet: `<span class="code-kw">import</span> React, { useEffect, useState } <span class="code-kw">from</span> <span class="code-str">'react'</span>;
-<span class="code-kw">import</span> { View, Text, StyleSheet } <span class="code-kw">from</span> <span class="code-str">'react-native'</span>;
-<span class="code-kw">import</span> * <span class="code-kw">as</span> Location <span class="code-kw">from</span> <span class="code-str">'expo-location'</span>;
-
-<span class="code-cm">// Project: Mobile Workforce Attendance &amp; Field Operations</span>
-<span class="code-cm">// Problem: GPS spoofing &amp; unreliable offline network connectivity</span>
-<span class="code-cm">// Solution: Geofenced verification &amp; SQLite offline sync queue</span>
-<span class="code-kw">export const</span> <span class="code-fn">MobileCheckInScreen</span> = () => {
-  <span class="code-kw">const</span> [status, setStatus] = <span class="code-fn">useState</span>(<span class="code-str">'Verifying location...'</span>);
-
-  <span class="code-fn">useEffect</span>(() => {
-    (<span class="code-kw">async</span> () => {
-      <span class="code-kw">const</span> { status: perm } = <span class="code-kw">await</span> Location.<span class="code-fn">requestForegroundPermissionsAsync</span>();
-      <span class="code-kw">if</span> (perm !== <span class="code-str">'granted'</span>) <span class="code-kw">return</span> <span class="code-fn">setStatus</span>(<span class="code-str">'Permission denied'</span>);
-      <span class="code-kw">const</span> loc = <span class="code-kw">await</span> Location.<span class="code-fn">getCurrentPositionAsync</span>({ accuracy: 6 });
-      <span class="code-fn">setStatus</span>(\`Verified within campus zone (\${loc.coords.latitude.toFixed(3)})\`);
-    })();
-  }, []);
-
-  <span class="code-kw">return</span> &lt;<span class="code-tag">View</span> <span class="code-var">style</span>={styles.container}&gt;&lt;<span class="code-tag">Text</span>&gt;{status}&lt;/<span class="code-tag">Text</span>&gt;&lt;/<span class="code-tag">View</span>&gt;;
-};`
-    },
-    {
-      category: 'mobile',
-      typeName: 'Saaed Self-Service Mobile',
-      actionText: 'View Saaed Mobile App',
-      actionUrl: 'https://github.com/Abdulqader-Alshihabi/Sync-ERP-HR',
-      previewImg: 'assets/images/projects/project_mobile_screen.png',
-      codeFile: 'payroll_request_bloc.dart',
-      codeSnippet: `<span class="code-kw">import</span> <span class="code-str">'package:flutter_bloc/flutter_bloc.dart'</span>;
-<span class="code-kw">import</span> <span class="code-str">'package:local_auth/local_auth.dart'</span>;
-
-<span class="code-cm">// Project: Saaed HR Mobile Self-Service</span>
-<span class="code-cm">// Problem: Employees cannot securely view payslips on mobile</span>
-<span class="code-cm">// Solution: Biometric authentication (FaceID/Fingerprint) &amp; encrypted PDF view</span>
-<span class="code-kw">class</span> <span class="code-fn">PayrollBloc</span> <span class="code-kw">extends</span> <span class="code-fn">Bloc</span>&lt;PayrollEvent, PayrollState&gt; {
-  <span class="code-kw">final</span> LocalAuthentication auth = LocalAuthentication();
-
-  PayrollBloc() : <span class="code-kw">super</span>(PayrollInitial()) {
-    on&lt;RequestPayslipEvent&gt;((event, emit) <span class="code-kw">async</span> {
-      <span class="code-kw">final</span> bool didAuth = <span class="code-kw">await</span> auth.<span class="code-fn">authenticate</span>(
-        localizedReason: <span class="code-str">'Authenticate to access monthly salary breakdown'</span>,
-      );
-      <span class="code-kw">if</span> (didAuth) {
-        emit(PayrollLoaded(slipData: event.encryptedPayload));
-      }
-    });
-  }
-}`
-    },
-
-    // --- 3. ML \ DL Projects (ai) ---
-    {
-      category: 'ai',
-      typeName: 'res-handler (AI Search)',
-      actionText: 'View res-handler Case Study',
-      actionUrl: 'https://github.com/Abdulqader-Alshihabi/res-handler',
-      previewImg: 'assets/images/projects/res_handler.jpg',
-      codeFile: 'vector_search.go',
-      codeSnippet: `<span class="code-kw">package</span> handlers
-
-<span class="code-kw">import</span> (
-    <span class="code-str">"context"</span>
-    <span class="code-str">"github.com/pgvector/pgvector-go"</span>
-)
-
-<span class="code-cm">// Project: Islamic University Research Commercialisation Engine</span>
-<span class="code-cm">// Problem: Industry problems couldn't match academic research via keywords</span>
-<span class="code-cm">// Solution: AI semantic vector search matching problems to university research</span>
-<span class="code-kw">func</span> (h *<span class="code-fn">Handler</span>) <span class="code-fn">MatchProblemToResearch</span>(ctx context.Context, query <span class="code-kw">string</span>) ([]Ticket, <span class="code-kw">error</span>) {
-    <span class="code-cm">// Generate Azure OpenAI semantic embedding vector</span>
-    vec, err := h.embedClient.<span class="code-fn">GetEmbedding</span>(ctx, query)
-    <span class="code-kw">if</span> err != nil { <span class="code-kw">return</span> nil, err }
-
-    <span class="code-cm">// Vector cosine similarity distance lookup with pgvector</span>
-    sql := "SELECT id, title, sector FROM tickets ORDER BY embedding &lt;=&gt; $1 LIMIT 5"
-    <span class="code-kw">return</span> h.db.<span class="code-fn">QueryTickets</span>(ctx, sql, pgvector.<span class="code-fn">NewVector</span>(vec))
-}`
-    },
-    {
-      category: 'ai',
-      typeName: 'Vision Transformer (ViT)',
-      actionText: 'View ViT Architecture',
-      actionUrl: 'https://github.com/Abdulqader-Alshihabi',
-      previewImg: 'assets/images/projects/project_ml.png',
-      codeFile: 'vit_transformer_engine.py',
-      codeSnippet: `<span class="code-kw">import</span> torch
-<span class="code-kw">import</span> torch.nn <span class="code-kw">as</span> nn
-
-<span class="code-cm"># Project: Vision Transformer (ViT-B/16) for Medical Image Diagnosis</span>
-<span class="code-cm"># Problem: CNNs lose long-range spatial context in high-resolution scans</span>
-<span class="code-cm"># Solution: Multi-head self-attention on non-overlapping 16x16 image patches</span>
-<span class="code-kw">class</span> <span class="code-fn">PatchEmbedding</span>(nn.Module):
-    <span class="code-kw">def</span> <span class="code-fn">__init__</span>(self, img_size=224, patch_size=16, in_channels=3, embed_dim=768):
-        <span class="code-fn">super</span>().__init__()
-        self.proj = nn.Conv2d(in_channels, embed_dim, kernel_size=patch_size, stride=patch_size)
-
-    <span class="code-kw">def</span> <span class="code-fn">forward</span>(self, x):
-        <span class="code-cm"># [B, C, H, W] -&gt; [B, embed_dim, num_patches] -&gt; [B, num_patches, embed_dim]</span>
-        <span class="code-kw">return</span> self.proj(x).flatten(2).transpose(1, 2)`
-    },
-    {
-      category: 'ai',
+      categories: ['web'],
       typeName: 'CineVault Movies',
       actionText: 'Launch Live CineVault App',
       actionUrl: 'https://abdulqader-alshihabi.github.io/Movie-Organizer-Desktop-App/',
@@ -432,9 +362,9 @@ function initPortfolio() {
 <span class="code-kw">from</span> PyQt5.QtCore <span class="code-kw">import</span> QPropertyAnimation, QEasingCurve
 <span class="code-kw">from</span> PyQt5.QtWidgets <span class="code-kw">import</span> QGraphicsDropShadowEffect
 
-<span class="code-cm"># Project: CineVault — Desktop Movie Organizer &amp; Profile Manager</span>
-<span class="code-cm"># Problem: Sluggish desktop UI jitter &amp; unencrypted multi-user profiles</span>
-<span class="code-cm"># Solution: Netflix-style profiles, SHA-256 security &amp; 60fps animations</span>
+<span class="code-cm">// Project: CineVault — Web &amp; Desktop Movie Management</span>
+<span class="code-cm">// Problem: Sluggish UI jitter &amp; unencrypted multi-user profiles</span>
+<span class="code-cm">// Solution: Responsive profiles, SHA-256 security &amp; 60fps animations</span>
 <span class="code-kw">class</span> <span class="code-fn">ProfileSelectorWidget</span>:
     <span class="code-kw">def</span> <span class="code-fn">verify_user_credentials</span>(self, entered_pin, stored_hash):
         <span class="code-cm"># Cryptographic SHA-256 password hash verification</span>
@@ -448,7 +378,7 @@ function initPortfolio() {
     }
   ];
 
-  // Preload all project images into browser cache immediately for instantaneous zero-delay display
+  // Preload all project images into browser memory cache immediately
   if (typeof Image !== 'undefined') {
     projectsData.forEach(p => {
       if (p.previewImg) {
@@ -461,11 +391,31 @@ function initPortfolio() {
   let currentCategory = 'web';
   let currentSubIndex = 0;
 
-  const getCategoryProjects = () => projectsData.filter(p => p.category === currentCategory);
+  const getCategoryProjects = () => projectsData.filter(p => Array.isArray(p.categories) ? p.categories.includes(currentCategory) : p.category === currentCategory);
 
   const renderProject = (subIdx) => {
     const catProjects = getCategoryProjects();
-    if (!catProjects.length) return;
+    if (!catProjects.length) {
+      // Empty category state (e.g. Mobile while user is finishing uploads)
+      if (codeFileName) codeFileName.textContent = 'mobile_showcase.tsx';
+      if (codeSnippetArea) {
+        codeSnippetArea.innerHTML = `<span class="code-cm">// Abdulqader Alshihabi — Mobile Engineering</span>
+<span class="code-cm">// Status: Production repositories currently being sanitized &amp; staged.</span>
+<span class="code-cm">// Mobile projects will be published here upon GitHub release.</span>
+
+<span class="code-kw">export const</span> <span class="code-fn">MobileSuiteStaging</span> = () => {
+  <span class="code-kw">return</span> &lt;<span class="code-tag">MobileSuiteStaging</span> <span class="code-var">status</span>=<span class="code-str">"Uploading repositories..."</span> /&gt;;
+};
+<span class="code-cm">// Check back soon or visit GitHub for updates!</span>`;
+      }
+      if (desktopPreviewImg) {
+        desktopPreviewImg.src = 'assets/images/projects/project_mobile_screen.png';
+        desktopPreviewImg.alt = 'Mobile Projects Staging';
+      }
+      if (worksViewText) worksViewText.textContent = 'View GitHub Profile & Upcoming Repositories';
+      if (worksViewLink) worksViewLink.href = 'https://github.com/Abdulqader-Alshihabi';
+      return;
+    }
 
     currentSubIndex = (subIdx + catProjects.length) % catProjects.length;
     const project = catProjects[currentSubIndex];
@@ -497,6 +447,15 @@ function initPortfolio() {
     if (!projectSubnavRow) return;
     const catProjects = getCategoryProjects();
     projectSubnavRow.innerHTML = '';
+
+    if (!catProjects.length) {
+      const badge = document.createElement('span');
+      badge.className = 'subnav-staging-badge';
+      badge.textContent = 'Mobile repositories currently being staged for upload';
+      projectSubnavRow.appendChild(badge);
+      return;
+    }
+
     catProjects.forEach((p, idx) => {
       const btn = document.createElement('button');
       btn.type = 'button';
@@ -942,7 +901,10 @@ function initPortfolio() {
   }
 
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeCertModal();
+    if (e.key === 'Escape') {
+      closeCertModal();
+      if (typeof closeContactModal === 'function') closeContactModal();
+    }
   });
 
   // Initial Certificates Render
