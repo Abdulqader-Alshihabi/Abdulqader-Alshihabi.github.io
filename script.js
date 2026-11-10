@@ -243,7 +243,7 @@ function initPortfolio() {
         <span class="code-kw">return</span> {<span class="code-str">"net_salary"</span>: net_payable, <span class="code-str">"wps_encrypted_record"</span>: encrypted_iban}`
     },
     {
-      categories: ['web', 'ai'],
+      categories: ['web'],
       typeName: 'res-handler',
       actionText: 'View res-handler Case Study',
       actionUrl: 'https://github.com/Abdulqader-Alshihabi/res-handler',
@@ -396,10 +396,38 @@ function initPortfolio() {
   const renderProject = (subIdx) => {
     const catProjects = getCategoryProjects();
     if (!catProjects.length) {
-      // Empty category state (e.g. Mobile while user is finishing uploads)
-      if (codeFileName) codeFileName.textContent = 'mobile_showcase.tsx';
-      if (codeSnippetArea) {
-        codeSnippetArea.innerHTML = `<span class="code-cm">// Abdulqader Alshihabi — Mobile Engineering</span>
+      // Empty category state (Mobile or AI while user is finishing repository uploads)
+      if (prevWorkBtn) {
+        prevWorkBtn.style.opacity = '0.3';
+        prevWorkBtn.style.pointerEvents = 'none';
+      }
+      if (nextWorkBtn) {
+        nextWorkBtn.style.opacity = '0.3';
+        nextWorkBtn.style.pointerEvents = 'none';
+      }
+
+      if (currentCategory === 'ai') {
+        if (codeFileName) codeFileName.textContent = 'ai_pipeline_staging.py';
+        if (codeSnippetArea) {
+          codeSnippetArea.innerHTML = `<span class="code-cm"># Abdulqader Alshihabi — AI &amp; Machine Learning</span>
+<span class="code-cm"># Status: Deep learning models &amp; research pipelines currently being staged.</span>
+<span class="code-cm"># Repositories will be published here upon GitHub release.</span>
+
+<span class="code-kw">class</span> <span class="code-fn">AIPipelineStaging</span>:
+    <span class="code-kw">def</span> <span class="code-fn">__init__</span>(self):
+        self.status = <span class="code-str">"Uploading ML/DL models &amp; notebooks..."</span>
+        self.verified_credentials = <span class="code-var">16</span>
+
+<span class="code-cm"># Check back soon or visit GitHub for updates!</span>`;
+        }
+        if (desktopPreviewImg) {
+          desktopPreviewImg.src = 'assets/images/projects/project_ml.png';
+          desktopPreviewImg.alt = 'AI & Machine Learning Projects Staging';
+        }
+      } else {
+        if (codeFileName) codeFileName.textContent = 'mobile_showcase.tsx';
+        if (codeSnippetArea) {
+          codeSnippetArea.innerHTML = `<span class="code-cm">// Abdulqader Alshihabi — Mobile Engineering</span>
 <span class="code-cm">// Status: Production repositories currently being sanitized &amp; staged.</span>
 <span class="code-cm">// Mobile projects will be published here upon GitHub release.</span>
 
@@ -407,14 +435,24 @@ function initPortfolio() {
   <span class="code-kw">return</span> &lt;<span class="code-tag">MobileSuiteStaging</span> <span class="code-var">status</span>=<span class="code-str">"Uploading repositories..."</span> /&gt;;
 };
 <span class="code-cm">// Check back soon or visit GitHub for updates!</span>`;
-      }
-      if (desktopPreviewImg) {
-        desktopPreviewImg.src = 'assets/images/projects/project_mobile_screen.png';
-        desktopPreviewImg.alt = 'Mobile Projects Staging';
+        }
+        if (desktopPreviewImg) {
+          desktopPreviewImg.src = 'assets/images/projects/project_mobile_screen.png';
+          desktopPreviewImg.alt = 'Mobile Projects Staging';
+        }
       }
       if (worksViewText) worksViewText.textContent = 'View GitHub Profile & Upcoming Repositories';
       if (worksViewLink) worksViewLink.href = 'https://github.com/Abdulqader-Alshihabi';
       return;
+    }
+
+    if (prevWorkBtn) {
+      prevWorkBtn.style.opacity = catProjects.length <= 1 ? '0.3' : '1';
+      prevWorkBtn.style.pointerEvents = catProjects.length <= 1 ? 'none' : 'auto';
+    }
+    if (nextWorkBtn) {
+      nextWorkBtn.style.opacity = catProjects.length <= 1 ? '0.3' : '1';
+      nextWorkBtn.style.pointerEvents = catProjects.length <= 1 ? 'none' : 'auto';
     }
 
     currentSubIndex = (subIdx + catProjects.length) % catProjects.length;
@@ -451,7 +489,11 @@ function initPortfolio() {
     if (!catProjects.length) {
       const badge = document.createElement('span');
       badge.className = 'subnav-staging-badge';
-      badge.textContent = 'Mobile repositories currently being staged for upload';
+      if (currentCategory === 'ai') {
+        badge.textContent = 'AI & Machine Learning models currently being staged for upload';
+      } else {
+        badge.textContent = 'Mobile repositories currently being staged for upload';
+      }
       projectSubnavRow.appendChild(badge);
       return;
     }
