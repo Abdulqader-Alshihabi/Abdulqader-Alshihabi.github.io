@@ -196,14 +196,6 @@ export default function KeyboardScene({ maxDpr }: { maxDpr: number }) {
               {selected?.shortDescription ?? "Hover, tap, or press a key"}
             </p>
           </div>
-          <a
-            href="https://www.npmjs.com/package/@chibi3d/runtime"
-            target="_blank"
-            rel="noreferrer"
-            className="pointer-events-auto text-xs text-muted-foreground underline underline-offset-4"
-          >
-            Rendered with Chibi
-          </a>
         </div>
       )}
     </>
