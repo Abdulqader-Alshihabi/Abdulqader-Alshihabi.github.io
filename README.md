@@ -95,10 +95,10 @@ This repository powers the official personal engineering portfolio of **Abdulqad
 
 ## Deployment Pipeline
 
-This repository uses automated GitHub Actions CI/CD to build and publish static assets to GitHub Pages on every push to the `main` branch.
+This repository publishes optimized, pre-rendered static Next.js production builds directly to GitHub Pages.
 
 - **Production URL**: [https://abdulqader-alshihabi.github.io/](https://abdulqader-alshihabi.github.io/)
-- **Workflow configuration**: `.github/workflows/deploy.yml`
+- **Hosting**: GitHub Pages with `.nojekyll` routing
 
 ---
 

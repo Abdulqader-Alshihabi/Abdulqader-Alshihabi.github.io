@@ -7,8 +7,6 @@ import Script from "next/script";
 import SiteFrame from "@/components/site-frame";
 import GitHubStars from "@/components/header/github-stars";
 import { Providers } from "@/components/providers";
-import { GoogleAnalytics } from "@next/third-parties/google";
-import { UMAMI_SRC } from "@/lib/umami";
 
 /* Body/base font — Space Grotesk, bound to --font-sans (applied as `font-sans`
  * on <html>). Everything that isn't a heading inherits this. */
@@ -74,24 +72,13 @@ export default function RootLayout({
       ].join(" ")}
       suppressHydrationWarning
     >
-      <head>
-        {process.env.UMAMI_SITE_ID && (
-          <Script
-            defer
-            src={UMAMI_SRC}
-            data-website-id={process.env.UMAMI_SITE_ID}
-          />
-        )}
-      </head>
+      <head />
       <body>
         <Providers>
           <SiteFrame githubStars={<GitHubStars className="mr-4" />}>
             {children}
           </SiteFrame>
         </Providers>
-        {process.env.NEXT_PUBLIC_GA_ID && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
-        )}
       </body>
     </html>
   );
