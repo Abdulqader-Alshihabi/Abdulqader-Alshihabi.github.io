@@ -40,7 +40,7 @@ const Header = ({ loader }: HeaderProps) => {
     >
       <div className={styles.bar}>
         <div className={styles.brand}>
-          <Link href="/" className="flex items-center">
+          <Link href="/#hero" className="flex items-center">
             <Button
               variant="link"
               className="text-base font-bold tracking-tight px-0 text-foreground hover:no-underline"

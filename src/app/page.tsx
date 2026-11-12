@@ -11,10 +11,12 @@ import ContactSection from "@/components/sections/contact";
 import HeroSection from "@/components/sections/hero";
 import AboutSection from "@/components/sections/about";
 import CertificatesSection from "@/components/sections/certificates";
+import ScrollSpy from "@/components/scroll-spy";
 
 function MainPage() {
   return (
     <SmoothScroll>
+      <ScrollSpy />
       <AnimatedBackground />
       <main className={cn("bg-slate-100 dark:bg-transparent canvas-overlay-mode")}>
         <HeroSection />
