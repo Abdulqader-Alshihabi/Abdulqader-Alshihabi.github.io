@@ -1,11 +1,5 @@
 User-Agent: *
 Allow: /
-Disallow: /api/
-Disallow: /components
-Disallow: /components1
-Disallow: /components2
-Disallow: /components3
-Disallow: /components-mono
 
 Host: https://abdulqader-alshihabi.github.io
 Sitemap: https://abdulqader-alshihabi.github.io/sitemap.xml

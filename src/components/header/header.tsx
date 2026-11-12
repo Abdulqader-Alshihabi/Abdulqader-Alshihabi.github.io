@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import styles from "./style.module.scss";
 import { opacity, background } from "./anim";
 import Nav from "./nav";
@@ -18,7 +17,7 @@ interface HeaderProps {
 
 const Header = ({ loader }: HeaderProps) => {
   const [isActive, setIsActive] = useState<boolean>(false);
-  const isHome = usePathname() === "/";
+
   return (
     <motion.header
       className={cn(
@@ -27,8 +26,6 @@ const Header = ({ loader }: HeaderProps) => {
       )}
       style={{
         background: isActive ? "hsl(var(--background) / .8)" : "transparent",
-        // backgroundImage:
-        //   "linear-gradient(0deg, rgba(0, 0, 0, 0), rgb(0, 0, 0))",
       }}
       initial={{
         y: -80,
@@ -37,53 +34,58 @@ const Header = ({ loader }: HeaderProps) => {
         y: 0,
       }}
       transition={{
-        delay: loader ? 3.5 : 0, // 3.5 for loading, .5 can be added for delay
+        delay: loader ? 3.5 : 0,
         duration: 0.8,
       }}
     >
-      {/* <div
-        className="absolute inset-0 "
-        style={{
-          mask: "linear-gradient(rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0) 12.5%)",
-        }}
-      >
-      </div> */}
-      <div className={cn(styles.bar, "flex items-center justify-between")}>
-        <Link href="/" className="flex items-center justify-center">
-          <Button variant={"link"} className="text-md">
-            {config.author}
-          </Button>
-        </Link>
-
-        <FunnyThemeToggle className="w-6 h-6 mr-4 hidden md:flex" />
-        <GitHubLink className="mr-4" />
-        <Button
-          variant={"ghost"}
-          onClick={() => setIsActive(!isActive)}
-          aria-label={isActive ? "Close menu" : "Open menu"}
-          aria-expanded={isActive}
-          className={cn(
-            styles.el,
-            "m-0 p-0 h-6 bg-transparent flex items-center justify-center"
-          )}
-        >
-          <div className="relative hidden md:flex items-center">
-            <motion.p
-              variants={opacity}
-              animate={!isActive ? "open" : "closed"}
+      <div className={styles.bar}>
+        <div className={styles.brand}>
+          <Link href="/" className="flex items-center">
+            <Button
+              variant="link"
+              className="text-base font-bold tracking-tight px-0 text-foreground hover:no-underline"
             >
-              Menu
-            </motion.p>
-            <motion.p variants={opacity} animate={isActive ? "open" : "closed"}>
-              Close
-            </motion.p>
-          </div>
-          <div
-            className={`${styles.burger} ${isActive ? styles.burgerActive : ""
+              {config.author}
+            </Button>
+          </Link>
+        </div>
+
+        <div className={styles.actions}>
+          <FunnyThemeToggle className="w-6 h-6 hidden md:flex" />
+          <GitHubLink />
+          <Button
+            variant="ghost"
+            onClick={() => setIsActive(!isActive)}
+            aria-label={isActive ? "Close menu" : "Open menu"}
+            aria-expanded={isActive}
+            className={cn(
+              styles.el,
+              "m-0 px-2 h-8 bg-transparent flex items-center justify-center gap-2 hover:bg-secondary/60 rounded-lg"
+            )}
+          >
+            <div className="relative hidden md:flex items-center">
+              <motion.p
+                variants={opacity}
+                animate={!isActive ? "open" : "closed"}
+              >
+                Menu
+              </motion.p>
+              <motion.p
+                variants={opacity}
+                animate={isActive ? "open" : "closed"}
+              >
+                Close
+              </motion.p>
+            </div>
+            <div
+              className={`${styles.burger} ${
+                isActive ? styles.burgerActive : ""
               }`}
-          ></div>
-        </Button>
+            ></div>
+          </Button>
+        </div>
       </div>
+
       <motion.div
         variants={background}
         initial="initial"
@@ -91,6 +93,7 @@ const Header = ({ loader }: HeaderProps) => {
         onClick={() => setIsActive(false)}
         className={styles.background}
       ></motion.div>
+
       <AnimatePresence mode="wait">
         {isActive && <Nav setIsActive={setIsActive} />}
       </AnimatePresence>
