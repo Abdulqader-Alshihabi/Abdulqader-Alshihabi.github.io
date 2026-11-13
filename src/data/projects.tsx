@@ -200,10 +200,10 @@ export type Project = {
 const projects: Project[] = [
   {
     id: "sitesight",
-    category: "Computer Vision",
+    category: "Edge AI & Vision",
     title: "SiteSight — PPE Safety AI",
-    src: "/me/projects/cris_showcase.png",
-    screenshots: ["cris_showcase.png"],
+    src: "/me/projects/sitesight_showcase.png",
+    screenshots: ["sitesight_showcase.png"],
     skills: {
       frontend: [PROJECT_SKILLS.js],
       backend: [PROJECT_SKILLS.python, PROJECT_SKILLS.ai],
@@ -218,9 +218,12 @@ const projects: Project[] = [
           </TypographyP>
           <ProjectsLinks live={this.live} repo={this.github} />
           <TypographyH3 className="my-4 mt-8">Problem</TypographyH3>
-          <p className="font-mono mb-2">High cloud GPU costs and latency for continuous construction workplace monitoring.</p>
+          <p className="font-mono mb-2">High cloud GPU costs and bandwidth latency for continuous construction workplace monitoring.</p>
           <TypographyH3 className="my-4 mt-8">Solution</TypographyH3>
-          <p className="font-mono mb-2">In-browser edge inference with YOLO11 and ONNX Runtime WebAssembly, executing zero-cloud real-time safety logging.</p>
+          <p className="font-mono mb-2">In-browser edge inference with YOLO11 and ONNX Runtime WebAssembly, executing zero-cloud real-time safety logging on HTML5 Canvas.</p>
+          <TypographyH3 className="my-4 mt-8">Technologies</TypographyH3>
+          <p className="font-mono mb-2">YOLO11 · PyTorch · ONNX Runtime Web · JavaScript · Canvas API · WebAssembly.</p>
+          <SlideShow images={["/me/projects/sitesight_showcase.png"]} />
         </div>
       );
     },
@@ -229,8 +232,8 @@ const projects: Project[] = [
     id: "faster-rcnn",
     category: "Deep Learning",
     title: "Faster R-CNN Detection",
-    src: "/me/projects/cris_showcase.png",
-    screenshots: ["cris_showcase.png"],
+    src: "/me/projects/faster_rcnn_showcase.png",
+    screenshots: ["faster_rcnn_showcase.png"],
     skills: {
       frontend: [PROJECT_SKILLS.js],
       backend: [PROJECT_SKILLS.python, PROJECT_SKILLS.ai],
@@ -245,9 +248,72 @@ const projects: Project[] = [
           </TypographyP>
           <ProjectsLinks live={this.live} repo={this.github} />
           <TypographyH3 className="my-4 mt-8">Architecture</TypographyH3>
-          <p className="font-mono mb-2">Two-stage detection with ResNet-50 FPN backbone trained and evaluated across 20 object classes.</p>
+          <p className="font-mono mb-2">Two-stage detection with ResNet-50 FPN backbone trained on PASCAL VOC across 20 object classes with 24ms inference latency.</p>
           <TypographyH3 className="my-4 mt-8">Deployment</TypographyH3>
-          <p className="font-mono mb-2">Multi-file ONNX weight chunking for client browsers and FastAPI inference microservice.</p>
+          <p className="font-mono mb-2">Multi-file ONNX weight graph chunking for client-side browser runtime and companion FastAPI prediction microservice.</p>
+          <TypographyH3 className="my-4 mt-8">Technologies</TypographyH3>
+          <p className="font-mono mb-2">PyTorch · ResNet-50 FPN · TorchVision · ONNX · FastAPI · PASCAL VOC.</p>
+          <SlideShow images={["/me/projects/faster_rcnn_showcase.png"]} />
+        </div>
+      );
+    },
+  },
+  {
+    id: "bone-fracture",
+    category: "Medical AI",
+    title: "Bone Fracture Classifier",
+    src: "/me/projects/bone_fracture_showcase.png",
+    screenshots: ["bone_fracture_showcase.png"],
+    skills: {
+      frontend: [PROJECT_SKILLS.js],
+      backend: [PROJECT_SKILLS.python, PROJECT_SKILLS.ai],
+    },
+    github: "https://github.com/Abdulqader-Alshihabi/Bone-Fracture-Classifier",
+    live: "https://abdulqader-alshihabi.github.io/Bone-Fracture-Classifier/",
+    get content() {
+      return (
+        <div>
+          <TypographyP className="font-mono text-2xl text-center">
+            Bone Fracture Diagnostic Classification System.
+          </TypographyP>
+          <ProjectsLinks live={this.live} repo={this.github} />
+          <TypographyH3 className="my-4 mt-8">Problem</TypographyH3>
+          <p className="font-mono mb-2">Need for rapid, reliable automated screening of multi-category orthopedic trauma in emergency radiology.</p>
+          <TypographyH3 className="my-4 mt-8">Solution</TypographyH3>
+          <p className="font-mono mb-2">Fine-tuned deep convolutional neural network (EfficientNet-B0) with multi-class diagnostic reporting and interactive browser-based ONNX diagnostic demo.</p>
+          <TypographyH3 className="my-4 mt-8">Technologies</TypographyH3>
+          <p className="font-mono mb-2">PyTorch · EfficientNet-B0 · ONNX · Scikit-learn · Medical Imaging.</p>
+          <SlideShow images={["/me/projects/bone_fracture_showcase.png"]} />
+        </div>
+      );
+    },
+  },
+  {
+    id: "visual-search",
+    category: "Multimodal AI",
+    title: "Visual Similarity Search",
+    src: "/me/projects/visual_search_showcase.png",
+    screenshots: ["visual_search_showcase.png"],
+    skills: {
+      frontend: [PROJECT_SKILLS.js],
+      backend: [PROJECT_SKILLS.python, PROJECT_SKILLS.ai],
+    },
+    github: "https://github.com/Abdulqader-Alshihabi/Visual-Similarity-Search",
+    live: "https://abdulqader-alshihabi.github.io/Visual-Similarity-Search/",
+    get content() {
+      return (
+        <div>
+          <TypographyP className="font-mono text-2xl text-center">
+            Visual Similarity Search Engine with OpenAI CLIP.
+          </TypographyP>
+          <ProjectsLinks live={this.live} repo={this.github} />
+          <TypographyH3 className="my-4 mt-8">Problem</TypographyH3>
+          <p className="font-mono mb-2">Traditional keyword search fails when indexing diverse visual concepts without manual tagging.</p>
+          <TypographyH3 className="my-4 mt-8">Solution</TypographyH3>
+          <p className="font-mono mb-2">Zero-shot multimodal retrieval computing 512-dimensional cosine similarity embeddings in real time in the user&apos;s browser.</p>
+          <TypographyH3 className="my-4 mt-8">Technologies</TypographyH3>
+          <p className="font-mono mb-2">OpenAI CLIP (ViT-B/32) · Client-Side Vector Search · PyTorch · JavaScript.</p>
+          <SlideShow images={["/me/projects/visual_search_showcase.png"]} />
         </div>
       );
     },
