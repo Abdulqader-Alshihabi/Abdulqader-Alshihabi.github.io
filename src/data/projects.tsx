@@ -202,8 +202,8 @@ const projects: Project[] = [
     id: "sitesight",
     category: "Edge AI & Vision",
     title: "SiteSight — PPE Safety AI",
-    src: "/me/projects/sitesight_showcase.png",
-    screenshots: ["sitesight_showcase.png"],
+    src: "/me/projects/project_placeholder.png",
+    screenshots: ["project_placeholder.png"],
     skills: {
       frontend: [PROJECT_SKILLS.js],
       backend: [PROJECT_SKILLS.python, PROJECT_SKILLS.ai],
@@ -223,7 +223,7 @@ const projects: Project[] = [
           <p className="font-mono mb-2">In-browser edge inference with YOLO11 and ONNX Runtime WebAssembly, executing zero-cloud real-time safety logging on HTML5 Canvas.</p>
           <TypographyH3 className="my-4 mt-8">Technologies</TypographyH3>
           <p className="font-mono mb-2">YOLO11 · PyTorch · ONNX Runtime Web · JavaScript · Canvas API · WebAssembly.</p>
-          <SlideShow images={["/me/projects/sitesight_showcase.png"]} />
+          <SlideShow images={["/me/projects/project_placeholder.png"]} />
         </div>
       );
     },
@@ -232,8 +232,8 @@ const projects: Project[] = [
     id: "faster-rcnn",
     category: "Deep Learning",
     title: "Faster R-CNN Detection",
-    src: "/me/projects/faster_rcnn_showcase.png",
-    screenshots: ["faster_rcnn_showcase.png"],
+    src: "/me/projects/project_placeholder.png",
+    screenshots: ["project_placeholder.png"],
     skills: {
       frontend: [PROJECT_SKILLS.js],
       backend: [PROJECT_SKILLS.python, PROJECT_SKILLS.ai],
@@ -253,7 +253,7 @@ const projects: Project[] = [
           <p className="font-mono mb-2">Multi-file ONNX weight graph chunking for client-side browser runtime and companion FastAPI prediction microservice.</p>
           <TypographyH3 className="my-4 mt-8">Technologies</TypographyH3>
           <p className="font-mono mb-2">PyTorch · ResNet-50 FPN · TorchVision · ONNX · FastAPI · PASCAL VOC.</p>
-          <SlideShow images={["/me/projects/faster_rcnn_showcase.png"]} />
+          <SlideShow images={["/me/projects/project_placeholder.png"]} />
         </div>
       );
     },
@@ -262,8 +262,8 @@ const projects: Project[] = [
     id: "bone-fracture",
     category: "Medical AI",
     title: "Bone Fracture Classifier",
-    src: "/me/projects/bone_fracture_showcase.png",
-    screenshots: ["bone_fracture_showcase.png"],
+    src: "/me/projects/project_placeholder.png",
+    screenshots: ["project_placeholder.png"],
     skills: {
       frontend: [PROJECT_SKILLS.js],
       backend: [PROJECT_SKILLS.python, PROJECT_SKILLS.ai],
@@ -283,7 +283,7 @@ const projects: Project[] = [
           <p className="font-mono mb-2">Fine-tuned deep convolutional neural network (EfficientNet-B0) with multi-class diagnostic reporting and interactive browser-based ONNX diagnostic demo.</p>
           <TypographyH3 className="my-4 mt-8">Technologies</TypographyH3>
           <p className="font-mono mb-2">PyTorch · EfficientNet-B0 · ONNX · Scikit-learn · Medical Imaging.</p>
-          <SlideShow images={["/me/projects/bone_fracture_showcase.png"]} />
+          <SlideShow images={["/me/projects/project_placeholder.png"]} />
         </div>
       );
     },
@@ -292,8 +292,8 @@ const projects: Project[] = [
     id: "visual-search",
     category: "Multimodal AI",
     title: "Visual Similarity Search",
-    src: "/me/projects/visual_search_showcase.png",
-    screenshots: ["visual_search_showcase.png"],
+    src: "/me/projects/project_placeholder.png",
+    screenshots: ["project_placeholder.png"],
     skills: {
       frontend: [PROJECT_SKILLS.js],
       backend: [PROJECT_SKILLS.python, PROJECT_SKILLS.ai],
@@ -313,7 +313,7 @@ const projects: Project[] = [
           <p className="font-mono mb-2">Zero-shot multimodal retrieval computing 512-dimensional cosine similarity embeddings in real time in the user&apos;s browser.</p>
           <TypographyH3 className="my-4 mt-8">Technologies</TypographyH3>
           <p className="font-mono mb-2">OpenAI CLIP (ViT-B/32) · Client-Side Vector Search · PyTorch · JavaScript.</p>
-          <SlideShow images={["/me/projects/visual_search_showcase.png"]} />
+          <SlideShow images={["/me/projects/project_placeholder.png"]} />
         </div>
       );
     },
