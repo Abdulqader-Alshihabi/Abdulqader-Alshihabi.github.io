@@ -334,15 +334,15 @@ const projects: Project[] = [
       return (
         <div>
           <TypographyP className="font-mono text-2xl text-center">
-            Islamic University CRIS — Research Intelligence platform.
+            Islamic University CRIS — Scholarly Big Data &amp; Research Intelligence Platform (Graduation Project · Dec 2026).
           </TypographyP>
           <ProjectsLinks live={this.live} repo={this.github} />
           <TypographyH3 className="my-4 mt-8">Problem</TypographyH3>
-          <p className="font-mono mb-2">Fragmented research data and unindexed Scopus publications.</p>
+          <p className="font-mono mb-2">Fragmented research records across faculties and unindexed Scopus/OpenAlex scholarly publications.</p>
           <TypographyH3 className="my-4 mt-8">Solution</TypographyH3>
-          <p className="font-mono mb-2">Automated multi-source deduplication (Scopus &amp; OpenAlex reconciled by DOI) and quartile analytics in an executive cockpit.</p>
+          <p className="font-mono mb-2">Reconciled 7,000+ publications and 70,000+ citations via automated DOI-based ETL pipelines in PostgreSQL, with executive quartile KPI dashboards for university leadership.</p>
           <TypographyH3 className="my-4 mt-8">Scope</TypographyH3>
-          <p className="font-mono mb-2">Proprietary Institutional Research Platform.</p>
+          <p className="font-mono mb-2">Official B.Sc. Graduation Project (December 2026) · Comprehensive Institutional Research Platform.</p>
           <SlideShow images={["/me/projects/cris_showcase.png"]} />
         </div>
       );
@@ -394,13 +394,15 @@ const projects: Project[] = [
       return (
         <div>
           <TypographyP className="font-mono text-2xl text-center">
-            Islamic University Research Commercialisation Engine.
+            Research Commercialization &amp; Interdisciplinary Intelligence Platform.
           </TypographyP>
           <ProjectsLinks live={this.live} repo={this.github} />
           <TypographyH3 className="my-4 mt-8">Problem</TypographyH3>
-          <p className="font-mono mb-2">Industry problems couldn&apos;t match academic research via keywords.</p>
+          <p className="font-mono mb-2">Academic research was isolated in institutional silos, commercial enterprises had no direct pathway to license university research, and faculties lacked mechanisms to discover cross-disciplinary research synergies.</p>
           <TypographyH3 className="my-4 mt-8">Solution</TypographyH3>
-          <p className="font-mono mb-2">AI semantic vector search matching industry problems to university research.</p>
+          <p className="font-mono mb-2">Aggregated university-wide research literature, profiled target corporate markets to commercialize academic research, built an AI cross-pollination matcher (e.g., pairing Computer Science and Arabic Linguistics scholars on natural language computing), and established 17 specialized institutional Expert Houses (بيوت خبرة).</p>
+          <TypographyH3 className="my-4 mt-8">Impact &amp; Architecture</TypographyH3>
+          <p className="font-mono mb-2">17 Specialized Expert Houses (بيوت خبرة) · High-performance Go (Golang 1.25) &amp; htmx · Sub-200ms pgvector cosine similarity.</p>
           <SlideShow images={["/me/projects/res_handler.jpg"]} />
         </div>
       );
