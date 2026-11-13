@@ -270,9 +270,10 @@ export const EXPERIENCE: Experience[] = [
     id: 3,
     periods: [{ start: "2022", end: "2027 (Expected: Jan 2027)" }],
     title: "Bachelor of Science in Computer Science",
-    company: "Islamic University of Madinah · Madinah (Undergraduate)",
+    company: "Islamic University of Madinah · Madinah (Undergraduate) · GPA: 4.62 / 5.00",
     description: [
-      "Rigorous study in software engineering, database systems, algorithms, distributed architecture, and machine learning.",
+      "Rigorous study in software engineering, database systems, algorithms, distributed architecture, and machine learning (Cumulative GPA: 4.62 / 5.00).",
+      "Relevant coursework: Data Structures & Algorithms, Database Systems, Software Engineering, Artificial Intelligence, Machine Learning, Deep Learning, Computer Vision, Operating Systems, Computer Networks.",
     ],
     skills: [
       SkillNames.JAVA,
@@ -286,12 +287,13 @@ export const EXPERIENCE: Experience[] = [
 
 export const ABOUT = {
   paragraphs: [
-    "Hello! My name is Abdulqader Alshihabi, a Computer Science student graduating in January 2027 from the Islamic University of Madinah, passionate about engineering scalable backend systems, enterprise software, and artificial intelligence solutions.",
+    "Hello! My name is Abdulqader Alshihabi, a Computer Science student (GPA: 4.62 / 5.00) graduating in January 2027 from the Islamic University of Madinah, passionate about engineering scalable backend systems, enterprise software, and artificial intelligence solutions.",
     "Currently serving as a Research & Innovation Consultant (Part-time) at the Institute of Research and Consulting Studies, steering technical architecture, development workflows, and research initiatives.",
     "Previously completed an intensive Software Engineering Internship at Asaqefah for Business Development, engineering core ERP modules with React.js and Django with automated cross-departmental business workflows.",
     "Holding 16 verified professional credentials across Computer Vision, Deep Learning, and Cloud Systems from prestigious institutions including KAUST Academy, DeepLearning.AI, IBM, and AWS.",
   ],
   stats: [
+    { value: "4.62", label: "Cumulative GPA / 5.00" },
     { value: "5", label: "Programming Languages" },
     { value: "10+", label: "Frameworks & Dev Tools" },
     { value: "16", label: "Verified Credentials" },

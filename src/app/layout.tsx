@@ -38,6 +38,15 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico?v=2" },
+      { url: "/icon.svg?v=2", type: "image/svg+xml" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png?v=2" },
+    ],
+  },
 };
 
 export default function RootLayout({

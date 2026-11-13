@@ -199,6 +199,60 @@ export type Project = {
 };
 const projects: Project[] = [
   {
+    id: "sitesight",
+    category: "Computer Vision",
+    title: "SiteSight — PPE Safety AI",
+    src: "/me/projects/cris_showcase.png",
+    screenshots: ["cris_showcase.png"],
+    skills: {
+      frontend: [PROJECT_SKILLS.js],
+      backend: [PROJECT_SKILLS.python, PROJECT_SKILLS.ai],
+    },
+    github: "https://github.com/Abdulqader-Alshihabi/SiteSight-Safety-Vision",
+    live: "https://abdulqader-alshihabi.github.io/SiteSight-Safety-Vision/",
+    get content() {
+      return (
+        <div>
+          <TypographyP className="font-mono text-2xl text-center">
+            SiteSight — Real-Time Edge PPE Computer Vision System.
+          </TypographyP>
+          <ProjectsLinks live={this.live} repo={this.github} />
+          <TypographyH3 className="my-4 mt-8">Problem</TypographyH3>
+          <p className="font-mono mb-2">High cloud GPU costs and latency for continuous construction workplace monitoring.</p>
+          <TypographyH3 className="my-4 mt-8">Solution</TypographyH3>
+          <p className="font-mono mb-2">In-browser edge inference with YOLO11 and ONNX Runtime WebAssembly, executing zero-cloud real-time safety logging.</p>
+        </div>
+      );
+    },
+  },
+  {
+    id: "faster-rcnn",
+    category: "Deep Learning",
+    title: "Faster R-CNN Detection",
+    src: "/me/projects/cris_showcase.png",
+    screenshots: ["cris_showcase.png"],
+    skills: {
+      frontend: [PROJECT_SKILLS.js],
+      backend: [PROJECT_SKILLS.python, PROJECT_SKILLS.ai],
+    },
+    github: "https://github.com/Abdulqader-Alshihabi/Faster-RCNN-Object-Detection",
+    live: "https://abdulqader-alshihabi.github.io/Faster-RCNN-Object-Detection/",
+    get content() {
+      return (
+        <div>
+          <TypographyP className="font-mono text-2xl text-center">
+            Faster R-CNN Deep Object Detection Pipeline.
+          </TypographyP>
+          <ProjectsLinks live={this.live} repo={this.github} />
+          <TypographyH3 className="my-4 mt-8">Architecture</TypographyH3>
+          <p className="font-mono mb-2">Two-stage detection with ResNet-50 FPN backbone trained and evaluated across 20 object classes.</p>
+          <TypographyH3 className="my-4 mt-8">Deployment</TypographyH3>
+          <p className="font-mono mb-2">Multi-file ONNX weight chunking for client browsers and FastAPI inference microservice.</p>
+        </div>
+      );
+    },
+  },
+  {
     id: "cris",
     category: "Graduation Project",
     title: "Graduation Project (CRIS)",
