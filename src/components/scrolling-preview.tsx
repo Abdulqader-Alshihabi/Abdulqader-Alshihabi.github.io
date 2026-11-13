@@ -36,8 +36,33 @@ const ScrollingPreview = ({
   const viewportRef = useRef<HTMLDivElement>(null);
   const [scrollPx, setScrollPx] = useState(0);
   const [bgReady, setBgReady] = useState(false);
+  // Defer fetching the screenshot until the card is close to the viewport so
+  // the 13 project images don't compete with the 3D scene on first load. The
+  // generous rootMargin means it is loaded well before it scrolls into view.
+  const [nearViewport, setNearViewport] = useState(false);
 
   useEffect(() => {
+    const vp = viewportRef.current;
+    if (!vp || nearViewport) return;
+    if (typeof IntersectionObserver === "undefined") {
+      setNearViewport(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setNearViewport(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "1200px 0px" }
+    );
+    io.observe(vp);
+    return () => io.disconnect();
+  }, [nearViewport]);
+
+  useEffect(() => {
+    if (!nearViewport) return;
     let cancelled = false;
     const img = new window.Image();
     const compute = () => {
@@ -57,7 +82,7 @@ const ScrollingPreview = ({
       cancelled = true;
       window.removeEventListener("resize", compute);
     };
-  }, [src]);
+  }, [src, nearViewport]);
 
   // Preload the wallpaper so a missing/404 file falls back to the gradient
   // instead of rendering a broken background.
@@ -120,7 +145,7 @@ const ScrollingPreview = ({
           style={{
             position: "absolute",
             inset: 0,
-            backgroundImage: `url("${src}")`,
+            backgroundImage: nearViewport ? `url("${src}")` : undefined,
             // Tall pages fill width and pan; normal images cover the frame.
             backgroundSize: scrolls ? "100% auto" : "cover",
             backgroundRepeat: "no-repeat",

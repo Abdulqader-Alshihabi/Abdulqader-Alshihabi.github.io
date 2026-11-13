@@ -294,7 +294,6 @@ export const ABOUT = {
   ],
   stats: [
     { value: "4.62", label: "Cumulative GPA / 5.00" },
-    { value: "5", label: "Programming Languages" },
     { value: "10+", label: "Frameworks & Dev Tools" },
     { value: "16", label: "Verified Credentials" },
   ],

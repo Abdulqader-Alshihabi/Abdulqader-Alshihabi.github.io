@@ -124,6 +124,8 @@ const ExperienceCard = ({
                   <img
                     src={skill.icon}
                     alt=""
+                    loading="lazy"
+                    decoding="async"
                     className="w-3.5 h-3.5 object-contain grayscale opacity-60 transition duration-300 group-hover:grayscale-0 group-hover:opacity-100"
                   />
                   {skill.label}
