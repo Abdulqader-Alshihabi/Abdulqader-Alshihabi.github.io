@@ -341,8 +341,8 @@ const projects: Project[] = [
           <p className="font-mono mb-2">Fragmented research data and unindexed Scopus publications.</p>
           <TypographyH3 className="my-4 mt-8">Solution</TypographyH3>
           <p className="font-mono mb-2">Automated multi-source deduplication (Scopus &amp; OpenAlex reconciled by DOI) and quartile analytics in an executive cockpit.</p>
-          <TypographyH3 className="my-4 mt-8">Note</TypographyH3>
-          <p className="font-mono mb-2">AI-Generated UI Mockup (Proprietary Project).</p>
+          <TypographyH3 className="my-4 mt-8">Scope</TypographyH3>
+          <p className="font-mono mb-2">Proprietary Institutional Research Platform.</p>
           <SlideShow images={["/me/projects/cris_showcase.png"]} />
         </div>
       );
@@ -371,8 +371,8 @@ const projects: Project[] = [
           <p className="font-mono mb-2">The core HR module with React.js and Django, including Saudi payroll (WPS).</p>
           <TypographyH3 className="my-4 mt-8">Automation</TypographyH3>
           <p className="font-mono mb-2">Automated cross-departmental HR-to-Finance workflows.</p>
-          <TypographyH3 className="my-4 mt-8">Note</TypographyH3>
-          <p className="font-mono mb-2">AI-Generated UI Mockup • Proprietary System (NDA).</p>
+          <TypographyH3 className="my-4 mt-8">Scope</TypographyH3>
+          <p className="font-mono mb-2">Proprietary Enterprise System (NDA Protected).</p>
           <SlideShow images={["/me/projects/saaed_erp.png"]} />
         </div>
       );
