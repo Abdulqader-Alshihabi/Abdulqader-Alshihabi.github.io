@@ -7,6 +7,7 @@ import {
   useContext,
   useRef,
   useCallback,
+  useMemo,
 } from "react";
 import { AnimatePresence } from "motion/react";
 import { usePathname } from "next/navigation";
@@ -39,7 +40,7 @@ export const usePreloader = () => {
   }
   return context;
 };
-const LOADING_TIME = 2.5;
+const LOADING_TIME = 2.8;
 function Preloader({ children, disabled = false }: PreloaderProps) {
   const pathname = usePathname();
   // Skip the loading splash for the résumé route (and anywhere it's disabled).
@@ -50,31 +51,38 @@ function Preloader({ children, disabled = false }: PreloaderProps) {
   const loadingTween = useRef<gsap.core.Tween>(null);
 
   // The splash exists only to mask the Chibi 3D scene loading. On low-end /
-  // reduced-motion devices that scene is never loaded, so its onLoad (which
-  // normally dismisses the splash) never fires — bypass immediately instead of
-  // leaving the page stuck behind the loader.
+  // reduced-motion devices that scene is never loaded, so bypass immediately.
   const { disable3D, ready: perfReady } = usePerfProfile();
 
   const bypassLoading = useCallback(() => {
-    loadingTween.current?.progress(0.99).kill();
-    setLoadingPercent(100);
-    setIsLoading(false);
+    // Allow the countdown tween to finish its smooth 0->100 curve instead of
+    // snapping abruptly when WebGL assets resolve early.
   }, []);
 
   useEffect(() => {
-    if (perfReady && disable3D) bypassLoading();
-  }, [perfReady, disable3D, bypassLoading]);
+    if (perfReady && disable3D) {
+      loadingTween.current?.kill();
+      setLoadingPercent(100);
+      setIsLoading(false);
+    }
+  }, [perfReady, disable3D]);
   const loadingPercentRef = useRef<{ value: number }>({ value: 0 });
   useEffect(() => {
     if (skip) return;
+    let lastInt = -1;
     loadingTween.current = gsap.to(loadingPercentRef.current, {
       value: 100,
       duration: LOADING_TIME,
-      ease: "slow(0.7,0.7,false)",
+      ease: "power2.inOut",
       onUpdate: () => {
-        setLoadingPercent(loadingPercentRef.current.value);
+        const next = Math.round(loadingPercentRef.current.value);
+        if (next !== lastInt) {
+          lastInt = next;
+          setLoadingPercent(next);
+        }
       },
       onComplete: () => {
+        setLoadingPercent(100);
         setIsLoading(false);
       },
     });
@@ -83,10 +91,13 @@ function Preloader({ children, disabled = false }: PreloaderProps) {
     };
   }, [skip]);
 
+  const value = useMemo(
+    () => ({ isLoading, bypassLoading, loadingPercent }),
+    [isLoading, bypassLoading, loadingPercent]
+  );
+
   return (
-    <preloaderContext.Provider
-      value={{ isLoading, bypassLoading, loadingPercent }}
-    >
+    <preloaderContext.Provider value={value}>
       <AnimatePresence mode="wait">{isLoading && <Loader />}</AnimatePresence>
       {children}
     </preloaderContext.Provider>

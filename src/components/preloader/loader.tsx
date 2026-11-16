@@ -5,37 +5,13 @@ import { motion } from "motion/react";
 import { opacity, slideUp } from "./anim";
 import { usePreloader } from ".";
 
-const steps = [
-  "10%",
-  "20%",
-  "30%",
-  "40%",
-  "50%",
-  "60%",
-  "70%",
-  "80%",
-  "90%",
-  "100%",
-];
-
 export default function Index() {
-  const { isLoading, loadingPercent } = usePreloader();
-  const [index, setIndex] = useState(0);
+  const { loadingPercent } = usePreloader();
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
     setDimension({ width: window.innerWidth, height: window.innerHeight });
   }, []);
-
-  useEffect(() => {
-    if (index == steps.length - 1) return;
-    setTimeout(
-      () => {
-        setIndex(index + 1);
-      },
-      index == 0 ? 1000 : 150
-    );
-  }, [index]);
 
   const initialPath = `M0 0 L${dimension.width} 0 L${dimension.width} ${dimension.height
     } Q${dimension.width / 2} ${dimension.height + 300} 0 ${dimension.height
@@ -50,7 +26,7 @@ export default function Index() {
     },
     exit: {
       d: targetPath,
-      transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] as const, delay: 0.3 },
+      transition: { duration: 0.85, ease: [0.76, 0, 0.24, 1] as const, delay: 0.25 },
     },
   };
 
@@ -64,7 +40,7 @@ export default function Index() {
       {dimension.width > 0 && (
         <>
           <motion.p variants={opacity} initial="initial" animate="enter">
-            {(loadingPercent - (loadingPercent % 5)).toFixed(0)} %
+            {Math.round(loadingPercent)} %
           </motion.p>
           <svg>
             <motion.path
