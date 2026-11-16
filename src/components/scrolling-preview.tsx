@@ -16,6 +16,10 @@ const MIN_SCROLL_OVERFLOW = 0.2;
 // project with just a screenshot still looks intentional.
 const FALLBACK_BG = "linear-gradient(135deg, #1e293b, #0f172a)";
 
+// Cache decoded image aspect ratios so shared screenshots (e.g. placeholders)
+// compute overflow without re-probing.
+const dimensionCache = new Map<string, { w: number; h: number }>();
+
 /**
  * Card preview: a screenshot floating over a wallpaper. Tall landing pages pan
  * on hover and smoothly return to top on mouse leave; normal (landscape/square)
@@ -64,20 +68,35 @@ const ScrollingPreview = ({
   useEffect(() => {
     if (!nearViewport) return;
     let cancelled = false;
-    const img = new window.Image();
-    const compute = () => {
+    const applyDims = (w: number, h: number) => {
       const vp = viewportRef.current;
-      if (cancelled || !vp || !img.naturalWidth) return;
-      const ratio = img.naturalHeight / img.naturalWidth;
+      if (cancelled || !vp || !w) return;
+      const ratio = h / w;
       const displayedHeight = vp.clientWidth * ratio; // height at bg-size "100% auto"
       const overflow = displayedHeight - vp.clientHeight;
       // Only pages meaningfully taller than the frame pan; the rest go "cover".
       setScrollPx(overflow > vp.clientHeight * MIN_SCROLL_OVERFLOW ? overflow : 0);
     };
+    const cached = dimensionCache.get(src);
+    if (cached) {
+      applyDims(cached.w, cached.h);
+      const onResize = () => applyDims(cached.w, cached.h);
+      window.addEventListener("resize", onResize, { passive: true });
+      return () => {
+        cancelled = true;
+        window.removeEventListener("resize", onResize);
+      };
+    }
+    const img = new window.Image();
+    const compute = () => {
+      if (!img.naturalWidth) return;
+      dimensionCache.set(src, { w: img.naturalWidth, h: img.naturalHeight });
+      applyDims(img.naturalWidth, img.naturalHeight);
+    };
     img.onload = compute;
     img.src = src;
     if (img.complete) compute();
-    window.addEventListener("resize", compute);
+    window.addEventListener("resize", compute, { passive: true });
     return () => {
       cancelled = true;
       window.removeEventListener("resize", compute);

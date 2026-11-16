@@ -260,20 +260,30 @@ function ElasticCursor() {
         y: e.clientY,
         duration: 1.5,
         ease: "elastic.out(1, 0.5)",
+        overwrite: "auto",
         onUpdate: () => {
           vel.x = (e.clientX - pos.x) * 1.2;
           vel.y = (e.clientY - pos.y) * 1.2;
+        },
+        onComplete: () => {
+          vel.x = 0;
+          vel.y = 0;
         },
       });
 
       const hide = !!(e.target as Element | null)?.closest?.(
         '[data-no-custom-cursor="true"]'
       );
-      isHiddenRef.current = hide;
-      document.body.style.cursor = hide ? "auto" : "";
+      if (isHiddenRef.current !== hide) {
+        isHiddenRef.current = hide;
+        document.body.style.cursor = hide ? "auto" : "";
+      }
     };
-    window.addEventListener("mousemove", onMove);
-    return () => window.removeEventListener("mousemove", onMove);
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      gsap.killTweensOf(pos);
+    };
   }, [isMobile, isBlogPost]);
 
   // Acquire/release targets via event delegation — fires once per target

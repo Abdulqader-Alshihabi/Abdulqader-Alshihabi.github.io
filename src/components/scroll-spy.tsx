@@ -20,8 +20,10 @@ export default function ScrollSpy() {
     if (pathname !== "/") return;
 
     let currentSection = "";
+    let rafId = 0;
 
-    const handleScroll = () => {
+    const updateSection = () => {
+      rafId = 0;
       const scrollPosition = window.scrollY + window.innerHeight * 0.35;
 
       for (let i = SECTIONS.length - 1; i >= 0; i--) {
@@ -40,10 +42,17 @@ export default function ScrollSpy() {
       }
     };
 
+    const handleScroll = () => {
+      if (!rafId) {
+        rafId = window.requestAnimationFrame(updateSection);
+      }
+    };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
+    updateSection();
 
     return () => {
+      window.cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", handleScroll);
     };
   }, [pathname]);
