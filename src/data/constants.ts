@@ -314,7 +314,7 @@ export const CONTACT = {
   phone: "+966 58 273 3968",
   phoneHref: "tel:+966582733968",
   whatsapp: "https://wa.me/966582733968",
-  linkedin: "https://www.linkedin.com/in/abdulqader-alshihabi-859b19260",
+  linkedin: "https://www.linkedin.com/in/abdulqader-alshihabi-859b19260/",
   github: "https://github.com/Abdulqader-Alshihabi",
 };
 

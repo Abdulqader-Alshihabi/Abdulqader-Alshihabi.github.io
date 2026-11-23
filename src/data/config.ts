@@ -31,7 +31,7 @@ const config = {
   },
   social: {
     twitter: "",
-    linkedin: "https://www.linkedin.com/in/abdulqader-alshihabi-859b19260",
+    linkedin: "https://www.linkedin.com/in/abdulqader-alshihabi-859b19260/",
     instagram: "",
     facebook: "",
     github: "https://github.com/Abdulqader-Alshihabi",

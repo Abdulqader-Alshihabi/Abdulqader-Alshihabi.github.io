@@ -91,6 +91,6 @@ Rich 3D developer portfolios routinely suffer from four fatal production bugs: b
 
 <div align="center">
 
-[Visit Interactive 3D Portfolio](https://abdulqader-alshihabi.github.io/) &nbsp;|&nbsp; Built by **Abdulqader Alshihabi**
+[Visit Interactive 3D Portfolio](https://abdulqader-alshihabi.github.io/) &nbsp;|&nbsp; [LinkedIn](https://www.linkedin.com/in/abdulqader-alshihabi-859b19260/) &nbsp;|&nbsp; Built by **Abdulqader Alshihabi**
 
 </div>
